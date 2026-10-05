@@ -1,5 +1,5 @@
 /* Service Worker для офлайн-режима учебного календаря ДТ-660 */
-const CACHE_NAME = 'dt660-calendar-v1';
+const CACHE_NAME = 'dt660-calendar-v2';
 const CORE_ASSETS = [
     './',
     './index.html',
@@ -10,7 +10,12 @@ const CORE_ASSETS = [
     './icons/icon.svg',
     './icons/icon-192.png',
     './icons/icon-512.png',
-    './icons/icon-maskable-512.png'
+    './icons/icon-maskable-512.png',
+    './assets/useful/matan/logarithms-1.png',
+    './assets/useful/matan/trig-1.png',
+    './assets/useful/matan/trig-2.png',
+    './assets/useful/matan/trig-3.png',
+    './assets/useful/matan/trig-4.png'
 ];
 
 // Установка: кэшируем основные файлы

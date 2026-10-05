@@ -1,1 +1,8 @@
-(empty)
+# Служебные/локальные файлы (не нужны на GitHub Pages)
+*.har
+.DS_Store
+Thumbs.db
+
+# Утилиты для парсинга HAR (только для локальной разработки)
+extract-all.js
+parse-har.js
