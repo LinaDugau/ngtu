@@ -1,0 +1,55 @@
+{
+    "name": "Учёбный календарь — ДТ-660",
+    "short_name": "Календарь ДТ-660",
+    "description": "Учебный календарь группы ДТ-660, заочное отделение НГТУ: установочные лекции, консультации, сессия и дедлайны.",
+    "lang": "ru",
+    "dir": "ltr",
+    "start_url": "./index.html",
+    "scope": "./",
+    "display": "standalone",
+    "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+    "orientation": "any",
+    "background_color": "#1a1a2e",
+    "theme_color": "#e94560",
+    "categories": ["education", "productivity"],
+    "icons": [
+        {
+            "src": "icons/icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        },
+        {
+            "src": "icons/icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Дедлайны",
+            "short_name": "Дедлайны",
+            "description": "Список ближайших дедлайнов",
+            "url": "./index.html#deadlines"
+        },
+        {
+            "name": "Орг. собрание ДТ-660",
+            "short_name": "Собрание",
+            "description": "Материалы организационного собрания",
+            "url": "./index.html#2026-09-10"
+        }
+    ]
+}

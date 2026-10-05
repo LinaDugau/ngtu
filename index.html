@@ -2,8 +2,20 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Учёбный календарь</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Учёбный календарь — ДТ-660</title>
+    <meta name="description" content="Учебный календарь группы ДТ-660, заочное отделение НГТУ: установочные лекции, консультации, сессия и дедлайны.">
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#e94560">
+    <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Календарь ДТ-660">
+
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,6 +27,10 @@
                 <button class="nav-btn" data-section="deadlines">Дедлайны</button>
             </nav>
             <div class="theme-section">
+                <button id="installBtn" class="theme-btn install-btn" hidden>
+                    <span>⬇️</span>
+                    <span>Установить</span>
+                </button>
                 <button id="themeToggle" class="theme-btn">
                     <span id="themeIcon">🌙</span>
                     <span id="themeText">Светлая</span>
@@ -57,6 +73,9 @@
         </div>
     </div>
     
+    <div id="offlineBanner" class="offline-banner" hidden>📴 Офлайн-режим — данные из кэша</div>
+
     <script src="script.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
