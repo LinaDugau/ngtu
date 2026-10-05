@@ -1097,11 +1097,17 @@ function updateThemeUI(theme) {
     }
 }
 
+let usefulRendered = false;
+
 function switchSection(sectionName) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     document.getElementById(`${sectionName}-section`).classList.add('active');
     document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
+    if (sectionName === 'useful' && !usefulRendered) {
+        renderUseful();
+        usefulRendered = true;
+    }
 }
 
 function generateCalendar(year, month) {
@@ -1347,6 +1353,104 @@ function setCurrentMonthSelect() {
     const option = select.querySelector(`option[value="${monthKey}"]`);
     select.value = option ? monthKey : '2026-10';
     showDeadlines(select.value);
+}
+
+/* ===== Раздел «Полезное» — материалы по предметам ===== */
+
+const usefulData = [
+    {
+        subject: 'Математический анализ',
+        icon: '∫',
+        color: '#2f7d4a',
+        topics: [
+            {
+                title: 'Повторение. Логарифмы',
+                subtitle: 'Определения, свойства и примеры действий с логарифмами',
+                images: [
+                    { src: 'assets/useful/matan/logarithms-1.png', alt: 'Логарифмы — формулы и свойства' }
+                ]
+            },
+            {
+                title: 'Повторение. Тригонометрические тождества',
+                subtitle: 'Основные тождества, формулы приведения, суммы и произведения',
+                images: [
+                    { src: 'assets/useful/matan/trig-1.png', alt: 'Тригонометрические тождества — часть 1' },
+                    { src: 'assets/useful/matan/trig-2.png', alt: 'Тригонометрические тождества — часть 2' },
+                    { src: 'assets/useful/matan/trig-3.png', alt: 'Тригонометрические тождества — часть 3' },
+                    { src: 'assets/useful/matan/trig-4.png', alt: 'Тригонометрические тождества — часть 4' }
+                ]
+            }
+        ]
+    }
+];
+
+let galleryImages = [];
+let galleryIndex = 0;
+
+function renderUseful() {
+    const container = document.getElementById('usefulList');
+    if (!container) return;
+
+    container.innerHTML = usefulData.map((subject, si) => `
+        <div class="useful-subject" style="--subject-color: ${subject.color}">
+            <button class="useful-subject-header" data-accordion="useful-${si}" aria-expanded="false">
+                <span class="useful-subject-icon">${escapeHtml(subject.icon)}</span>
+                <span class="useful-subject-name">${escapeHtml(subject.subject)}</span>
+                <span class="useful-subject-count">${subject.topics.reduce((n, t) => n + t.images.length, 0)} материалов</span>
+                <span class="useful-chevron">▾</span>
+            </button>
+            <div class="useful-subject-body" id="useful-${si}" hidden>
+                ${subject.topics.map(topic => `
+                    <div class="useful-topic">
+                        <h4 class="useful-topic-title">${escapeHtml(topic.title)}</h4>
+                        ${topic.subtitle ? `<p class="useful-topic-subtitle">${escapeHtml(topic.subtitle)}</p>` : ''}
+                        <div class="useful-images">
+                            ${topic.images.map(img => `
+                                <figure class="useful-image-card" data-src="${img.src}" data-alt="${escapeHtml(img.alt)}">
+                                    <img src="${img.src}" alt="${escapeHtml(img.alt)}" loading="lazy">
+                                    <figcaption>${escapeHtml(img.alt)}</figcaption>
+                                </figure>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `).join('');
+
+    container.querySelectorAll('.useful-subject-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const body = document.getElementById(header.dataset.accordion);
+            const isOpen = !body.hidden;
+            body.hidden = isOpen;
+            header.setAttribute('aria-expanded', String(!isOpen));
+            header.classList.toggle('open', !isOpen);
+        });
+    });
+
+    container.querySelectorAll('.useful-image-card').forEach(card => {
+        card.addEventListener('click', () => openImageModal(card.dataset.src, card.dataset.alt));
+    });
+
+    // первая тема открыта по умолчанию
+    const firstHeader = container.querySelector('.useful-subject-header');
+    if (firstHeader) firstHeader.click();
+}
+
+function openImageModal(src, alt) {
+    showModalContent(`
+        <h3 class="gallery-title">${escapeHtml(alt)}</h3>
+        <div class="gallery-frame">
+            <img src="${src}" alt="${escapeHtml(alt)}" class="gallery-image">
+        </div>
+        <p class="gallery-hint">Нажмите на картинку ещё раз или закройте окно, чтобы вернуться.</p>
+    `);
+}
+
+function showModalContent(html) {
+    document.getElementById('modalDate').textContent = '';
+    document.getElementById('modalInfo').innerHTML = html;
+    document.getElementById('modal').classList.add('show');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
