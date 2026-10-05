@@ -1367,17 +1367,19 @@ const usefulData = [
                 title: 'Повторение. Логарифмы',
                 subtitle: 'Определения, свойства и примеры действий с логарифмами',
                 images: [
-                    { src: 'assets/useful/matan/logarithms-1.png', alt: 'Логарифмы — формулы и свойства' }
+                    { src: 'assets/useful/matan/logarithms-1.png', alt: 'Логарифмы — формулы и свойства' },
+                    { src: 'assets/useful/matan/logarithms-2.webp', alt: 'Логарифмы — часть 2' },
+                    { src: 'assets/useful/matan/logarithms-3.webp', alt: 'Логарифмы — часть 3' }
                 ]
             },
             {
                 title: 'Повторение. Тригонометрические тождества',
                 subtitle: 'Основные тождества, формулы приведения, суммы и произведения',
                 images: [
-                    { src: 'assets/useful/matan/trig-1.png', alt: 'Тригонометрические тождества — часть 1' },
+                    { src: 'assets/useful/matan/trig-1.jpg', alt: 'Тригонометрические тождества — часть 1' },
                     { src: 'assets/useful/matan/trig-2.png', alt: 'Тригонометрические тождества — часть 2' },
                     { src: 'assets/useful/matan/trig-3.png', alt: 'Тригонометрические тождества — часть 3' },
-                    { src: 'assets/useful/matan/trig-4.png', alt: 'Тригонометрические тождества — часть 4' }
+                    { src: 'assets/useful/matan/trig-4.jpeg', alt: 'Тригонометрические тождества — часть 4' }
                 ]
             }
         ]
