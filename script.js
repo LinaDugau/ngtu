@@ -555,8 +555,8 @@ const scheduleData = {
             {
                 title: "Организационное собрание — ДТ-660",
                 description: "Собрание студентов 1 курса, поступивших на ЗО в 2026 году по организационным вопросам",
-                start_time: "2026-09-10T10:45:00Z",
-                end_time: "2026-09-10T12:30:00Z",
+                start_time: "2026-09-10T13:45:00+03:00",
+                end_time: "2026-09-10T15:30:00+03:00",
                 type: "webinar",
                 teacher: "Любченко Валентина Яковлевна",
                 notes: lectureNotes.orgMeetingDT660.sections
@@ -566,8 +566,8 @@ const scheduleData = {
             {
                 title: "МА лекция",
                 description: "Введение в дисциплину",
-                start_time: "2026-09-17T12:00:00Z",
-                end_time: "2026-09-17T13:30:00Z",
+                start_time: "2026-09-17T15:00:00+03:00",
+                end_time: "2026-09-17T16:30:00+03:00",
                 type: "webinar",
                 teacher: "Шеремет Оксана Владиславовна"
             },
@@ -584,8 +584,8 @@ const scheduleData = {
             {
                 title: "Установочная лекция по ОРГ",
                 description: "Кафедра истории и политологии — курс №464",
-                start_time: "2026-09-23T12:00:00Z",
-                end_time: "2026-09-23T13:00:00Z",
+                start_time: "2026-09-23T15:00:00+03:00",
+                end_time: "2026-09-23T16:00:00+03:00",
                 type: "webinar",
                 teacher: "Красильникова Екатерина Ивановна",
                 course_name: lectureNotes.orgHistory.course_name,
@@ -595,8 +595,8 @@ const scheduleData = {
             {
                 title: "Установочная лекция по Истории России",
                 description: "Курс №1534 — 9 модулей, 9 тестов, 1 контрольная",
-                start_time: "2026-09-23T12:30:00Z",
-                end_time: "2026-09-23T13:30:00Z",
+                start_time: "2026-09-23T15:30:00+03:00",
+                end_time: "2026-09-23T16:30:00+03:00",
                 type: "webinar",
                 teacher: "Анисимов Алексей Олегович",
                 course_name: lectureNotes.history.course_name,
@@ -608,8 +608,8 @@ const scheduleData = {
             {
                 title: "Лекция МА",
                 description: null,
-                start_time: "2026-09-24T12:00:00Z",
-                end_time: "2026-09-24T13:30:00Z",
+                start_time: "2026-09-24T15:00:00+03:00",
+                end_time: "2026-09-24T16:30:00+03:00",
                 type: "webinar",
                 teacher: "Шеремет Оксана Владиславовна"
             }
@@ -618,8 +618,8 @@ const scheduleData = {
             {
                 title: "Установочная лекция по ОРГ",
                 description: "Кафедра философии — контрольная работа, курс №1938",
-                start_time: "2026-09-25T12:00:00Z",
-                end_time: "2026-09-25T13:00:00Z",
+                start_time: "2026-09-25T15:00:00+03:00",
+                end_time: "2026-09-25T16:00:00+03:00",
                 type: "webinar",
                 teacher: "Пронер Нина Сергеевна",
                 course_name: lectureNotes.orgPhilosophy.course_name,
@@ -646,8 +646,8 @@ const scheduleData = {
             {
                 title: "Лекция МА",
                 description: null,
-                start_time: "2026-10-01T12:00:00Z",
-                end_time: "2026-10-01T13:30:00Z",
+                start_time: "2026-10-01T15:00:00+03:00",
+                end_time: "2026-10-01T16:30:00+03:00",
                 type: "webinar",
                 teacher: "Шеремет Оксана Владиславовна"
             }
@@ -656,8 +656,8 @@ const scheduleData = {
             {
                 title: "Установочная лекция по Линейной алгебре и Аналитической геометрии",
                 description: "Получаем расчётно-графическое задание — курс №309",
-                start_time: "2026-10-02T12:15:00Z",
-                end_time: "2026-10-02T13:45:00Z",
+                start_time: "2026-10-02T15:15:00+03:00",
+                end_time: "2026-10-02T16:45:00+03:00",
                 type: "webinar",
                 teacher: "Пономарев Константин Николаевич",
                 course_name: lectureNotes.linAlg.course_name,
@@ -669,8 +669,8 @@ const scheduleData = {
             {
                 title: "Лекция МА",
                 description: null,
-                start_time: "2026-10-08T12:00:00Z",
-                end_time: "2026-10-08T13:30:00Z",
+                start_time: "2026-10-08T15:00:00+03:00",
+                end_time: "2026-10-08T16:30:00+03:00",
                 type: "webinar",
                 teacher: "Шеремет Оксана Владиславовна"
             }
@@ -679,8 +679,8 @@ const scheduleData = {
             {
                 title: "Лекция МА",
                 description: null,
-                start_time: "2026-10-15T12:00:00Z",
-                end_time: "2026-10-15T13:30:00Z",
+                start_time: "2026-10-15T15:00:00+03:00",
+                end_time: "2026-10-15T16:30:00+03:00",
                 type: "webinar",
                 teacher: "Шеремет Оксана Владиславовна"
             }
@@ -699,8 +699,8 @@ const scheduleData = {
             {
                 title: "Лекция МА",
                 description: null,
-                start_time: "2026-10-22T12:00:00Z",
-                end_time: "2026-10-22T13:30:00Z",
+                start_time: "2026-10-22T15:00:00+03:00",
+                end_time: "2026-10-22T16:30:00+03:00",
                 type: "webinar",
                 teacher: "Шеремет Оксана Владиславовна"
             }
@@ -709,8 +709,8 @@ const scheduleData = {
             {
                 title: "Лекция МА",
                 description: null,
-                start_time: "2026-10-29T12:00:00Z",
-                end_time: "2026-10-29T13:30:00Z",
+                start_time: "2026-10-29T15:00:00+03:00",
+                end_time: "2026-10-29T16:30:00+03:00",
                 type: "webinar",
                 teacher: "Шеремет Оксана Владиславовна"
             }
@@ -721,8 +721,8 @@ const scheduleData = {
             {
                 title: "Лекция МА",
                 description: null,
-                start_time: "2026-11-05T12:00:00Z",
-                end_time: "2026-11-05T13:30:00Z",
+                start_time: "2026-11-05T15:00:00+03:00",
+                end_time: "2026-11-05T16:30:00+03:00",
                 type: "webinar",
                 teacher: "Шеремет Оксана Владиславовна"
             }
@@ -731,8 +731,8 @@ const scheduleData = {
             {
                 title: "Лекция МА",
                 description: null,
-                start_time: "2026-11-12T12:00:00Z",
-                end_time: "2026-11-12T13:30:00Z",
+                start_time: "2026-11-12T15:00:00+03:00",
+                end_time: "2026-11-12T16:30:00+03:00",
                 type: "webinar",
                 teacher: "Шеремет Оксана Владиславовна"
             }
@@ -751,8 +751,8 @@ const scheduleData = {
             {
                 title: "Лекция МА",
                 description: null,
-                start_time: "2026-11-19T12:00:00Z",
-                end_time: "2026-11-19T13:30:00Z",
+                start_time: "2026-11-19T15:00:00+03:00",
+                end_time: "2026-11-19T16:30:00+03:00",
                 type: "webinar",
                 teacher: "Шеремет Оксана Владиславовна"
             }
@@ -761,8 +761,8 @@ const scheduleData = {
             {
                 title: "Лекция МА",
                 description: null,
-                start_time: "2026-11-26T12:00:00Z",
-                end_time: "2026-11-26T13:30:00Z",
+                start_time: "2026-11-26T15:00:00+03:00",
+                end_time: "2026-11-26T16:30:00+03:00",
                 type: "webinar",
                 teacher: "Шеремет Оксана Владиславовна"
             }
@@ -784,8 +784,8 @@ const scheduleData = {
             {
                 title: "Лекция МА",
                 description: null,
-                start_time: "2026-12-03T12:00:00Z",
-                end_time: "2026-12-03T13:30:00Z",
+                start_time: "2026-12-03T15:00:00+03:00",
+                end_time: "2026-12-03T16:30:00+03:00",
                 type: "webinar",
                 teacher: "Шеремет Оксана Владиславовна"
             }
@@ -794,8 +794,8 @@ const scheduleData = {
             {
                 title: "Лекция МА",
                 description: null,
-                start_time: "2026-12-10T12:00:00Z",
-                end_time: "2026-12-10T13:30:00Z",
+                start_time: "2026-12-10T15:00:00+03:00",
+                end_time: "2026-12-10T16:30:00+03:00",
                 type: "webinar",
                 teacher: "Шеремет Оксана Владиславовна"
             }
@@ -804,8 +804,8 @@ const scheduleData = {
             {
                 title: "Лекция МА",
                 description: null,
-                start_time: "2026-12-17T12:00:00Z",
-                end_time: "2026-12-17T13:30:00Z",
+                start_time: "2026-12-17T15:00:00+03:00",
+                end_time: "2026-12-17T16:30:00+03:00",
                 type: "webinar",
                 teacher: "Шеремет Оксана Владиславовна"
             }
@@ -814,8 +814,8 @@ const scheduleData = {
             {
                 title: "Лекция МА",
                 description: null,
-                start_time: "2026-12-24T12:00:00Z",
-                end_time: "2026-12-24T13:30:00Z",
+                start_time: "2026-12-24T15:00:00+03:00",
+                end_time: "2026-12-24T16:30:00+03:00",
                 type: "webinar",
                 teacher: "Шеремет Оксана Владиславовна"
             }
@@ -824,8 +824,8 @@ const scheduleData = {
             {
                 title: "Лекция МА",
                 description: null,
-                start_time: "2026-12-31T12:00:00Z",
-                end_time: "2026-12-31T13:30:00Z",
+                start_time: "2026-12-31T15:00:00+03:00",
+                end_time: "2026-12-31T16:30:00+03:00",
                 type: "webinar",
                 teacher: "Шеремет Оксана Владиславовна"
             }
@@ -836,8 +836,8 @@ const scheduleData = {
             {
                 title: "Лекция МА",
                 description: null,
-                start_time: "2027-01-07T12:00:00Z",
-                end_time: "2027-01-07T13:30:00Z",
+                start_time: "2027-01-07T15:00:00+03:00",
+                end_time: "2027-01-07T16:30:00+03:00",
                 type: "webinar",
                 teacher: "Шеремет Оксана Владиславовна"
             }
@@ -1213,14 +1213,21 @@ function formatTextBlock(text) {
         .join('');
 }
 
+// Секции, которые всегда показываются целиком (без выпадающего списка).
+// Всё остальное скрыто в выпадающих списках.
+const ALWAYS_OPEN_SECTION_TITLES = [
+    "Задание на ближайшее время",
+    "Что нужно сделать до сессии"
+];
+
 function renderNotes(sections) {
     if (!sections || !sections.length) return '';
 
+    let accIdx = 0;
     return `
         <div class="event-notes">
-            ${sections.map(section => `
-                <div class="info-section">
-                    <h4 class="info-section-title">${escapeHtml(section.title)}</h4>
+            ${sections.map(section => {
+                const content = `
                     <div class="info-section-content">
                         ${(section.blocks || []).map(formatTextBlock).join('')}
                         ${section.list ? `
@@ -1230,11 +1237,46 @@ function renderNotes(sections) {
                         ` : ''}
                         ${(section.afterList || []).map(formatTextBlock).join('')}
                     </div>
-                </div>
-            `).join('')}
+                `;
+
+                if (ALWAYS_OPEN_SECTION_TITLES.includes(section.title)) {
+                    return `
+                        <div class="info-section">
+                            <h4 class="info-section-title">${escapeHtml(section.title)}</h4>
+                            ${content}
+                        </div>
+                    `;
+                }
+
+                const id = `notes-acc-${accIdx++}`;
+                return `
+                    <div class="info-section info-section-accordion">
+                        <button class="info-section-toggle" data-accordion="${id}" aria-expanded="false">
+                            <span class="info-section-title">${escapeHtml(section.title)}</span>
+                            <span class="info-section-chevron">▾</span>
+                        </button>
+                        <div class="info-section-body" id="${id}" hidden>
+                            ${content}
+                        </div>
+                    </div>
+                `;
+            }).join('')}
         </div>
     `;
 }
+
+// Обработчик кликов по выпадающим секциям в заметках (делегирование —
+// работает для динамически созданного содержимого модального окна)
+document.addEventListener('click', (e) => {
+    const toggle = e.target.closest('.info-section-toggle');
+    if (!toggle) return;
+    const body = document.getElementById(toggle.dataset.accordion);
+    if (!body) return;
+    const isOpen = !body.hidden;
+    body.hidden = isOpen;
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    toggle.classList.toggle('open', !isOpen);
+});
 
 function showDayInfo(year, month, day, events) {
     const modal = document.getElementById('modal');
@@ -1251,12 +1293,12 @@ function showDayInfo(year, month, day, events) {
     modalInfo.innerHTML = events.map(event => {
         let timeStr = '';
         if (event.start_time) {
+            // Время хранится с явным смещением (МСК +03:00 / Новосибирск +05:00),
+            // toLocaleTimeString автоматически показывает его по часовой зоне устройства.
             const startTime = new Date(event.start_time);
             const endTime = new Date(event.end_time);
-            const localOffset = 5 * 60;
-            const startLocal = new Date(startTime.getTime() + localOffset * 60 * 1000);
-            const endLocal = new Date(endTime.getTime() + localOffset * 60 * 1000);
-            timeStr = `${startLocal.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })} – ${endLocal.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}`;
+            const opts = { hour: '2-digit', minute: '2-digit' };
+            timeStr = `${startTime.toLocaleTimeString('ru-RU', opts)} – ${endTime.toLocaleTimeString('ru-RU', opts)}`;
         }
 
         const typeLabel = event.type === 'webinar' ? 'Лекция'

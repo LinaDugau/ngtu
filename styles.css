@@ -577,6 +577,45 @@ body {
     margin-bottom: 0;
 }
 
+/* Выпадающие секции в заметках лекций */
+.info-section-accordion {
+    padding: 0;
+    overflow: hidden;
+}
+
+.info-section-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+}
+
+.info-section-toggle .info-section-title {
+    margin-bottom: 0;
+}
+
+.info-section-chevron {
+    color: var(--text-secondary);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.info-section-toggle.open .info-section-chevron {
+    transform: rotate(180deg);
+}
+
+.info-section-body {
+    padding: 0 16px 14px;
+}
+
 .empty-state {
     color: var(--text-secondary);
     text-align: center;
@@ -599,43 +638,88 @@ body {
 
 /* Responsive */
 @media (max-width: 700px) {
+    .main-content {
+        padding: 15px 8px;
+    }
+
     .header-content {
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
+        padding: 10px 12px;
     }
     
     .nav-menu {
         width: 100%;
         justify-content: center;
+        gap: 6px;
     }
     
     .nav-btn {
         flex: 1;
         text-align: center;
-        min-width: 120px;
+        min-width: 0;
+        padding: 8px 6px;
+        font-size: 0.85rem;
     }
     
     .calendar-container {
-        padding: 12px;
+        padding: 10px 6px;
+    }
+
+    .calendar-header {
+        margin-bottom: 12px;
+        gap: 8px;
+    }
+
+    #currentMonth {
+        font-size: 1.05rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+        min-width: 0;
+        flex: 1;
+    }
+
+    .nav-arrow {
+        padding: 6px 12px;
+        font-size: 1rem;
+        flex-shrink: 0;
+    }
+
+    /* Календарь прокручивается горизонтально, чтобы месяцы не вылезали за экран */
+    .calendar-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .calendar-grid {
-        gap: 4px;
+        gap: 3px;
+        min-width: 340px;
     }
     
     .day-cell,
     .day-cell.other-month {
-        min-height: 78px;
-        padding: 4px;
+        min-height: 72px;
+        padding: 3px;
+    }
+
+    .day-name {
+        padding: 4px 2px;
+        font-size: 0.75rem;
     }
 
     .subject-label {
-        font-size: 0.58rem;
+        font-size: 0.55rem;
         padding: 2px 3px;
     }
 
     .day-number {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
+    }
+
+    .deadlines-container {
+        padding: 15px 12px;
     }
 }
 

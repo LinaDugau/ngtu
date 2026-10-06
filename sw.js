@@ -1,5 +1,5 @@
 /* Service Worker для офлайн-режима учебного календаря ДТ-660 */
-const CACHE_NAME = 'dt660-calendar-v3';
+const CACHE_NAME = 'dt660-calendar-v7';
 const CORE_ASSETS = [
     './',
     './index.html',
