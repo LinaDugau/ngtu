@@ -685,6 +685,18 @@ const scheduleData = {
                 teacher: "Шеремет Оксана Владиславовна"
             }
         ],
+        "16": [
+            {
+                title: "Изучаем произведения векторов. Разбираем второе задание",
+                description: "",
+                start_time: "2026-10-16T15:15:00+03:00",
+                end_time: "2026-10-16T16:15:00+03:00",
+                type: "webinar",
+                teacher: "Пономарев Константин Николаевич",
+                course_name: lectureNotes.linAlg.course_name,
+                course_id: lectureNotes.linAlg.course_id
+            }
+        ],
         "17": [
             {
                 title: "Контрольная работа №1",
