@@ -17,7 +17,8 @@ const CORE_ASSETS = [
     './assets/useful/matan/trig-1.jpg',
     './assets/useful/matan/trig-2.png',
     './assets/useful/matan/trig-3.png',
-    './assets/useful/matan/trig-4.jpeg'
+    './assets/useful/matan/trig-4.jpeg',
+    './assets/useful/matan/trig-5.jpeg'
 ];
 
 // Установка: кэшируем основные файлы
