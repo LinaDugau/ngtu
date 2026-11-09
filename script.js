@@ -1492,6 +1492,13 @@ const usefulData = [
                     { src: 'assets/useful/matan/trig-4.jpeg', alt: 'Тригонометрические тождества — часть 4' },
                     { src: 'assets/useful/matan/trig-5.jpeg', alt: 'Тригонометрические тождества — часть 5' }
                 ]
+            },
+            {
+                title: 'Производные',
+                subtitle: 'Таблица производных и правила дифференцирования',
+                images: [
+                    { src: 'assets/useful/matan/proiz-1.png', alt: 'Производные — таблица и правила' }
+                ]
             }
         ]
     }
