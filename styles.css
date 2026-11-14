@@ -971,3 +971,24 @@ body {
         display: none;
     }
 }
+
+/* Кнопка перехода к подробной лекции */
+.lecture-link {
+    display: inline-block;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.lecture-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.lecture-link:active {
+    transform: translateY(0);
+}

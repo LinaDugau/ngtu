@@ -775,34 +775,40 @@ const scheduleData = {
         ],
         "29": [
             {
-                title: "Лекция МА",
-                description: null,
+                title: "Лекция МА — Производные сложных функций",
+                description: "Производные сложных, параметрически и неявно заданных функций. Логарифмическое дифференцирование.",
                 start_time: "2026-10-29T15:00:00+03:00",
                 end_time: "2026-10-29T16:30:00+03:00",
                 type: "webinar",
-                teacher: "Шеремет Оксана Владиславовна"
+                teacher: "Шеремет Оксана Владиславовна",
+                course_name: lectureNotes.mathAnalysis.course_name,
+                lecture_link: "lectures/ma-29-10-2026.html"
             }
         ]
     },
     "2026-11": {
         "5": [
             {
-                title: "Лекция МА",
-                description: null,
+                title: "Лекция МА — Производные высших порядков",
+                description: "Производные высших порядков, дифференциалы, формулы Тейлора и Маклорена",
                 start_time: "2026-11-05T15:00:00+03:00",
                 end_time: "2026-11-05T16:30:00+03:00",
                 type: "webinar",
-                teacher: "Шеремет Оксана Владиславовна"
+                teacher: "Шеремет Оксана Владиславовна",
+                course_name: lectureNotes.mathAnalysis.course_name,
+                lecture_link: "lectures/ma-05-11-2026.html"
             }
         ],
         "12": [
             {
-                title: "Лекция МА",
-                description: null,
+                title: "Лекция МА — Исследование функций",
+                description: "Приложение дифференциального исчисления к исследованию функций",
                 start_time: "2026-11-12T15:00:00+03:00",
                 end_time: "2026-11-12T16:30:00+03:00",
                 type: "webinar",
-                teacher: "Шеремет Оксана Владиславовна"
+                teacher: "Шеремет Оксана Владиславовна",
+                course_name: lectureNotes.mathAnalysis.course_name,
+                lecture_link: "lectures/ma-12-11-2026.html"
             }
         ],
         "14": [
@@ -1407,6 +1413,14 @@ function showDayInfo(year, month, day, events) {
                     <div class="event-description">${escapeHtml(event.description)}</div>
                 ` : ''}
 
+                ${event.lecture_link ? `
+                    <div style="margin-top: 20px;">
+                        <a href="${event.lecture_link}" class="lecture-link" target="_blank" style="display: inline-block; padding: 12px 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.2s;">
+                            📖 Подробный конспект лекции
+                        </a>
+                    </div>
+                ` : ''}
+
                 ${event.notes ? renderNotes(event.notes) : ''}
             </div>
         `;
@@ -1497,7 +1511,8 @@ const usefulData = [
                 title: 'Производные',
                 subtitle: 'Таблица производных и правила дифференцирования',
                 images: [
-                    { src: 'assets/useful/matan/proiz-1.png', alt: 'Производные — таблица и правила' }
+                    { src: 'assets/useful/matan/proiz-1.png', alt: 'Производные — таблица и правила' },
+                    { src: 'assets/useful/matan/hard-proiz.png', alt: 'Сложные производные' }
                 ]
             }
         ]

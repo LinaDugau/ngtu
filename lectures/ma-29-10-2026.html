@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МА — Производные сложных функций (29.10.2026)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .meta {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .meta strong {
+            color: #764ba2;
+        }
+
+        h2 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        h3 {
+            color: #667eea;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p, li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .formula-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .formula {
+            font-size: 1.3em;
+            text-align: center;
+            margin: 15px 0;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .example {
+            background: #fff8e1;
+            border-left: 4px solid #ffa726;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1.1em;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .highlight {
+            background: #ffeb3b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .note {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .warning {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .back-link:hover {
+            background: #764ba2;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .math {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+
+        .fraction {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 3px;
+            font-size: 0.95em;
+        }
+
+        .numerator {
+            border-bottom: 1px solid currentColor;
+            padding: 0 5px 1px 5px;
+            display: block;
+            line-height: 1.1;
+        }
+
+        .denominator {
+            padding: 1px 5px 0 5px;
+            display: block;
+            line-height: 1.1;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Математический анализ — занятие МА29</h1>
+            <div class="meta">
+                <strong>Дата:</strong> 29 октября 2026 года<br>
+                <strong>Группа:</strong> ДТ-660<br>
+                <strong>Тема:</strong> Производные сложных, параметрически и неявно заданных функций. Логарифмическое дифференцирование.
+            </div>
+        </div>
+
+        <h2>1. Что говорил преподаватель</h2>
+        <ul>
+            <li><strong>Главная тема занятия</strong> — производные сложных функций. Это один из основных вопросов экзамена.</li>
+            <li><strong>На экзамене</strong> разрешено пользоваться таблицей производных. Выводить табличные формулы не потребуется.</li>
+            <li><span class="highlight">Контрольные работы:</span> решения, бездумно переписанные из нейросетей, могут быть оценены в 0 баллов. Это не означает автоматический недопуск к сессии.</li>
+            <li><strong>Оформление:</strong> сначала производная внешней функции с сохранением аргумента, затем производная внутренней. Только после этого упрощение.</li>
+            <li><strong>Ручной ввод ответов:</strong> преподаватель рекомендует сохранять порядок множителей из формулы, поскольку система может не распознать перестановки.</li>
+            <li><strong>Скобки обязательны</strong>, особенно перед отрицательными выражениями.</li>
+            <li><strong>Домашнее задание:</strong> пройти задания 3.1–3.5; 3.6 тоже можно выполнить.</li>
+            <li><strong>Сроки:</strong> до следующего занятия. КР 2 до 14.11.</li>
+        </ul>
+
+        <h2>2. Основные формулы</h2>
+
+        <h3>Производная сложной функции</h3>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">(f(g(x)))' = f'(g(x)) · g'(x)</span>
+            </div>
+        </div>
+
+        <div class="example">
+            <strong>Пример оформления:</strong><br>
+            <div class="formula">
+                <span class="math">((3x − 1)³)' = 3(3x − 1)² · 3</span>
+            </div>
+            <div class="formula">
+                <span class="math">= 9(3x − 1)²</span>
+            </div>
+        </div>
+
+        <h3>Таблица производных</h3>
+        <div class="formula-box" style="font-size: 1.2em; line-height: 2.5;">
+            <ol style="list-style-position: inside;">
+                <li>
+                    <span class="math">(x<sup>α</sup>)' = α · x<sup>α−1</sup></span>. Частные случаи: 
+                    <span class="math">
+                        (<span class="fraction"><span class="numerator">1</span><span class="denominator">x</span></span>)' = −<span class="fraction"><span class="numerator">1</span><span class="denominator">x²</span></span>
+                    </span>; 
+                    <span class="math">
+                        (√x)' = <span class="fraction"><span class="numerator">1</span><span class="denominator">2√x</span></span>
+                    </span>
+                </li>
+                
+                <li><span class="math">(a<sup>x</sup>)' = a<sup>x</sup> ln a</span>. Частный случай <span class="math">(e<sup>x</sup>)' = e<sup>x</sup></span></li>
+                
+                <li>
+                    <span class="math">
+                        (log<sub>a</sub> x)' = <span class="fraction"><span class="numerator">1</span><span class="denominator">x·ln a</span></span>
+                    </span>. Частный случай 
+                    <span class="math">
+                        (ln x)' = <span class="fraction"><span class="numerator">1</span><span class="denominator">x</span></span>
+                    </span>
+                </li>
+                
+                <li><span class="math">(sin x)' = cos x</span></li>
+                
+                <li><span class="math">(cos x)' = −sin x</span></li>
+                
+                <li>
+                    <span class="math">
+                        (tg x)' = <span class="fraction"><span class="numerator">1</span><span class="denominator">cos² x</span></span>
+                    </span>
+                </li>
+                
+                <li>
+                    <span class="math">
+                        (ctg x)' = −<span class="fraction"><span class="numerator">1</span><span class="denominator">sin² x</span></span>
+                    </span>
+                </li>
+                
+                <li>
+                    <span class="math">
+                        (arcsin x)' = <span class="fraction"><span class="numerator">1</span><span class="denominator">√(1 − x²)</span></span>
+                    </span>
+                </li>
+                
+                <li>
+                    <span class="math">
+                        (arccos x)' = −<span class="fraction"><span class="numerator">1</span><span class="denominator">√(1 − x²)</span></span>
+                    </span>
+                </li>
+                
+                <li>
+                    <span class="math">
+                        (arctg x)' = <span class="fraction"><span class="numerator">1</span><span class="denominator">1 + x²</span></span>
+                    </span>
+                </li>
+                
+                <li>
+                    <span class="math">
+                        (arcctg x)' = −<span class="fraction"><span class="numerator">1</span><span class="denominator">1 + x²</span></span>
+                    </span>
+                </li>
+            </ol>
+        </div>
+
+        <h3>Сложные производные</h3>
+        <div class="note">
+            <p>Для сложных производных (произведение, частное, композиция функций) используются специальные правила:</p>
+        </div>
+        <div style="text-align: center; margin: 20px 0;">
+            <img src="../assets/useful/matan/hard-proiz.png" alt="Сложные производные" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+            <p style="margin-top: 10px; font-size: 0.9em; color: #666;"><em>Формулы сложных производных</em></p>
+        </div>
+
+        <h3>Правила дифференцирования</h3>
+        <div class="formula-box">
+            <div class="formula"><span class="math">(Cu)' = C · u'</span></div>
+            <div class="formula"><span class="math">(u ± v)' = u' ± v'</span></div>
+            <div class="formula"><span class="math">(u · v)' = u' · v + u · v'</span></div>
+            <div class="formula">
+                <span class="math">
+                    (<span class="fraction"><span class="numerator">u</span><span class="denominator">v</span></span>)' = 
+                    <span class="fraction"><span class="numerator">u' · v − u · v'</span><span class="denominator">v²</span></span>
+                </span>
+            </div>
+        </div>
+
+        <h3>Параметрически заданные функции</h3>
+        <div class="note">
+            Если <span class="math">x = x(t)</span> и <span class="math">y = y(t)</span>, то:
+            <div class="formula-box">
+                <div class="formula">
+                    <span class="math">
+                        y'<sub>x</sub> = <span class="fraction"><span class="numerator">y'<sub>t</sub></span><span class="denominator">x'<sub>t</sub></span></span>
+                    </span>
+                </div>
+            </div>
+            При <span class="math">x'<sub>t</sub> ≠ 0</span>
+        </div>
+        <p><strong>Преподаватель подчеркнула:</strong> в технических задачах такие функции встречаются часто. Формулу обязательно освоить.</p>
+
+        <h3>Неявно заданные функции</h3>
+        <p>Дифференцируем обе части уравнения, считая <span class="math">y</span> функцией от <span class="math">x</span>.</p>
+        <div class="example">
+            <strong>Например:</strong>
+            <div class="formula"><span class="math">x² + y² = 4</span></div>
+            <div class="formula"><span class="math">2x + 2y · y' = 0</span></div>
+            <div class="formula">
+                <span class="math">
+                    y' = −<span class="fraction"><span class="numerator">x</span><span class="denominator">y</span></span>
+                </span>
+            </div>
+        </div>
+
+        <h3>Логарифмическое дифференцирование</h3>
+        <p>Применяется для сложных произведений, дробей, корней и степенно-показательных функций.</p>
+        <div class="formula-box">
+            <div class="formula"><span class="math">y' = y · (ln(y))'</span></div>
+        </div>
+        <div class="example">
+            <strong>Например:</strong>
+            <div class="formula"><span class="math">y = x<sup>x</sup></span></div>
+            <div class="formula"><span class="math">y' = x<sup>x</sup> · (ln(x) + 1)</span></div>
+        </div>
+
+        <h2>3. Нюансы, на которые обращал внимание преподаватель</h2>
+        <div class="warning">
+            <ol>
+                <li>Не путать <span class="math">cos(x²)</span> и <span class="math">cos²(x)</span> — производные разные.</li>
+                <li>При дифференцировании сложной функции внутренний аргумент сохраняется.</li>
+                <li>Не забывать множитель <span class="math">u'</span>.</li>
+                <li>Для <span class="math">a<sup>u(x)</sup></span> обязательно учитывать <span class="math">ln(a)</span>.</li>
+                <li>В неявных функциях <span class="math">(y²)' = 2y · y'</span>, а не просто <span class="math">2y</span>.</li>
+                <li>При параметрическом задании делить производную <span class="math">y</span> по <span class="math">t</span> на производную <span class="math">x</span> по <span class="math">t</span>.</li>
+            </ol>
+        </div>
+
+        <h2>4. Что делать дальше</h2>
+        <ul>
+            <li>Пройти тренажёры раздела 3, задания <strong>3.1–3.5</strong>, по возможности 3.6.</li>
+            <li>Выучить таблицу и правила производных.</li>
+            <li>Тренироваться оформлять производные сложных функций по образцу преподавателя.</li>
+            <li>Подготовиться к следующему занятию: <strong>уравнение касательной, формула Тейлора, свойства дифференцируемых функций</strong>.</li>
+        </ul>
+
+        <div class="note">
+            <strong>Главное:</strong> преподаватель считает нахождение производных сложных функций одним из важнейших навыков первого семестра наряду с интегралами.
+        </div>
+
+        <a href="../index.html" class="back-link">← Вернуться к расписанию</a>
+    </div>
+</body>
+</html>

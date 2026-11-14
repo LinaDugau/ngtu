@@ -1,5 +1,5 @@
 /* Service Worker для офлайн-режима учебного календаря ДТ-660 */
-const CACHE_NAME = 'dt660-calendar-v7';
+const CACHE_NAME = 'dt660-calendar-v8';
 const CORE_ASSETS = [
     './',
     './index.html',
@@ -11,9 +11,11 @@ const CORE_ASSETS = [
     './icons/icon-192.png',
     './icons/icon-512.png',
     './icons/icon-maskable-512.png',
+    './lectures/ma-29-10-2026.html',
     './assets/useful/matan/logarithms-1.png',
     './assets/useful/matan/logarithms-2.webp',
     './assets/useful/matan/logarithms-3.webp',
+    './assets/useful/matan/hard-proiz.png',
     './assets/useful/matan/proiz-1.png',
     './assets/useful/matan/trig-1.jpg',
     './assets/useful/matan/trig-2.png',

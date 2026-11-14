@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МА — Производные высших порядков (05.11.2026)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .meta {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .meta strong {
+            color: #764ba2;
+        }
+
+        h2 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        h3 {
+            color: #667eea;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p, li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .formula-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .formula {
+            font-size: 1.3em;
+            text-align: center;
+            margin: 15px 0;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .example {
+            background: #fff8e1;
+            border-left: 4px solid #ffa726;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .note {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .warning {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .back-link:hover {
+            background: #764ba2;
+        }
+
+        .math {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+
+        .fraction {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 3px;
+            font-size: 0.95em;
+        }
+
+        .numerator {
+            border-bottom: 1px solid currentColor;
+            padding: 0 5px 1px 5px;
+            display: block;
+            line-height: 1.1;
+        }
+
+        .denominator {
+            padding: 1px 5px 0 5px;
+            display: block;
+            line-height: 1.1;
+        }
+
+        .highlight {
+            background: #ffeb3b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .boxed {
+            border: 2px solid #667eea;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Математический анализ — занятие №9</h1>
+            <div class="meta">
+                <strong>Дата:</strong> 5 ноября 2026 года<br>
+                <strong>Группа:</strong> ДТ-660<br>
+                <strong>Тема:</strong> Производные высших порядков, дифференциалы, формулы Тейлора и Маклорена.
+            </div>
+        </div>
+
+        <h2>Что важно из слов преподавателя</h2>
+        <ul>
+            <li><span class="highlight">Контрольная №2:</span> преподаватель рекомендовала постепенно начинать её выполнять. На следующем занятии планируется применение производной к исследованию функций, после чего контрольную можно будет сдавать.</li>
+            <li><strong>Оформление решений:</strong> нельзя просто записывать переходы между формулами без объяснений. Нужно показывать, почему применяется правило или преобразование.</li>
+            <li><strong>Типичные ошибки:</strong> потерянные степени, логарифмы, штрихи производных, скобки и знаки.</li>
+            <li><strong>Нейросети:</strong> преподаватель отдельно предупредила, что бездумно переписанные решения с ошибками оцениваются очень низко.</li>
+            <li><strong>Нюанс:</strong> при дифференцировании неявной функции обязательно учитывать, что <span class="math">y</span> зависит от <span class="math">x</span>, поэтому появляется множитель <span class="math">y'</span>.</li>
+        </ul>
+
+        <div class="warning">
+            <strong>Точный рекомендуемый календарный срок сдачи контрольной №2 до 14.11.</strong>
+        </div>
+
+        <h2>Основные формулы занятия</h2>
+
+        <h3>1. Производные высших порядков</h3>
+        <p>Вторая производная — производная от первой:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">f''(x) = (f'(x))'</span>
+            </div>
+        </div>
+
+        <p>Производная <span class="math">n</span>-го порядка:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">f<sup>(n)</sup>(x) = (f<sup>(n−1)</sup>(x))'</span>
+            </div>
+        </div>
+
+        <p>Для <span class="math">y = ln x</span>:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">
+                    y<sup>(n)</sup> = <span class="fraction">
+                        <span class="numerator">(−1)<sup>n−1</sup>(n−1)!</span>
+                        <span class="denominator">x<sup>n</sup></span>
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        <h3>2. Параметрически заданная функция</h3>
+        <p>Если <span class="math">x = x(t)</span>, <span class="math">y = y(t)</span>:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">
+                    y'<sub>x</sub> = <span class="fraction">
+                        <span class="numerator">y'<sub>t</sub></span>
+                        <span class="denominator">x'<sub>t</sub></span>
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">
+                    y''<sub>xx</sub> = <span class="fraction">
+                        <span class="numerator">(y'<sub>x</sub>)'<sub>t</sub></span>
+                        <span class="denominator">x'<sub>t</sub></span>
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        <div class="warning">
+            <strong>Важно:</strong> вторую производную нельзя находить простым повторным делением <span class="math">y'<sub>t</sub></span> на <span class="math">x'<sub>t</sub></span>. Сначала дифференцируется уже полученная первая производная по параметру <span class="math">t</span>.
+        </div>
+
+        <h3>3. Неявная функция</h3>
+        <p>Если задано уравнение <span class="math">F(x, y) = 0</span>, то при дифференцировании <span class="math">y</span> считается функцией от <span class="math">x</span>.</p>
+
+        <div class="example">
+            <p><strong>Например:</strong></p>
+            <div class="formula">
+                <span class="math">(y²)' = 2y · y'</span>
+            </div>
+        </div>
+
+        <p>На занятии разбиралась задача:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">xy² + y + x² = 3, &nbsp; x = 1, &nbsp; y = 1</span>
+            </div>
+        </div>
+
+        <p>Получили:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    y' = −<span class="fraction">
+                        <span class="numerator">2x + y²</span>
+                        <span class="denominator">2xy + 1</span>
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">y'(1) = −1, &nbsp;&nbsp; y''(1) = 0</span>
+            </div>
+        </div>
+
+        <h3>4. Дифференциалы</h3>
+        <p>Дифференциал первого порядка:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">dy = y'(x) dx</span>
+            </div>
+        </div>
+
+        <p>Дифференциал второго порядка:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">d²y = y''(x)(dx)²</span>
+            </div>
+        </div>
+
+        <p>Дифференциал <span class="math">n</span>-го порядка:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">d<sup>n</sup>y = y<sup>(n)</sup>(x)(dx)<sup>n</sup></span>
+            </div>
+        </div>
+
+        <h3>5. Приближённые вычисления</h3>
+        <p>При малом приращении аргумента:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">Δy ≈ dy = y'(x₀)Δx</span>
+            </div>
+        </div>
+
+        <p>Приближённое значение функции:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">f(x) ≈ f(x₀) + f'(x₀)(x − x₀)</span>
+            </div>
+        </div>
+
+        <p>Абсолютная погрешность:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">Δ<sub>абс</sub> = |Δy − dy|</span>
+            </div>
+        </div>
+
+        <p>Относительная погрешность:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">
+                    δ = <span class="fraction">
+                        <span class="numerator">Δ<sub>абс</sub></span>
+                        <span class="denominator">|Δy|</span>
+                    </span> · 100%
+                </span>
+            </div>
+        </div>
+
+        <div class="note">
+            <strong>Преподаватель подчеркнула:</strong> чем меньше <span class="math">Δx</span>, тем точнее приближение через дифференциал.
+        </div>
+
+        <h3>6. Формулы Тейлора и Маклорена</h3>
+        <p>Формула Тейлора:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">
+                    f(x) ≈ Σ<sub>k=0</sub><sup>n</sup> <span class="fraction">
+                        <span class="numerator">f<sup>(k)</sup>(x₀)</span>
+                        <span class="denominator">k!</span>
+                    </span>(x − x₀)<sup>k</sup>
+                </span>
+            </div>
+        </div>
+
+        <p>Формула Маклорена — частный случай при <span class="math">x₀ = 0</span>:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">
+                    f(x) ≈ Σ<sub>k=0</sub><sup>n</sup> <span class="fraction">
+                        <span class="numerator">f<sup>(k)</sup>(0)</span>
+                        <span class="denominator">k!</span>
+                    </span>x<sup>k</sup>
+                </span>
+            </div>
+        </div>
+
+        <h3>Основные разложения</h3>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    e<sup>x</sup> = 1 + x + <span class="fraction">
+                        <span class="numerator">x²</span>
+                        <span class="denominator">2!</span>
+                    </span> + <span class="fraction">
+                        <span class="numerator">x³</span>
+                        <span class="denominator">3!</span>
+                    </span> + ⋯
+                </span>
+            </div>
+        </div>
+
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    ln(1 + x) = x − <span class="fraction">
+                        <span class="numerator">x²</span>
+                        <span class="denominator">2</span>
+                    </span> + <span class="fraction">
+                        <span class="numerator">x³</span>
+                        <span class="denominator">3</span>
+                    </span> − ⋯, &nbsp; |x| &lt; 1
+                </span>
+            </div>
+        </div>
+
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    (1 + x)<sup>α</sup> = 1 + αx + <span class="fraction">
+                        <span class="numerator">α(α − 1)</span>
+                        <span class="denominator">2!</span>
+                    </span>x² + ⋯
+                </span>
+            </div>
+        </div>
+
+        <div class="note">
+            Для разложения <span class="math">ln(1 + x)</span> преподаватель отдельно обращала внимание на условие <span class="math">|x| &lt; 1</span>.
+        </div>
+
+        <h2>Что запомнить для контрольной №2</h2>
+        <ol>
+            <li>Уметь находить вторую и последующие производные.</li>
+            <li>Дифференцировать неявные и параметрические функции.</li>
+            <li>Вычислять дифференциалы и погрешности приближений.</li>
+            <li>Применять формулы Тейлора и Маклорена.</li>
+            <li>Оформлять решения с промежуточными действиями и пояснениями.</li>
+        </ol>
+
+        <div class="note">
+            <strong>Следующая тема:</strong> исследование функций с помощью производных.
+        </div>
+
+        <a href="../index.html" class="back-link">← Вернуться к расписанию</a>
+    </div>
+</body>
+</html>
