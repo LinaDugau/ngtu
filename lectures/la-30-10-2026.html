@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЛА — Плоскость и прямая (30.10.2026)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #43a047 0%, #1b5e20 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #43a047;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #43a047;
+            margin-bottom: 10px;
+        }
+
+        .meta {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .meta strong {
+            color: #1b5e20;
+        }
+
+        h2 {
+            color: #1b5e20;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        h3 {
+            color: #43a047;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p, li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1.05em;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #43a047;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .formula-box {
+            background: #f8f9fa;
+            border-left: 4px solid #43a047;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .formula {
+            font-size: 1.3em;
+            text-align: center;
+            margin: 15px 0;
+            font-family: 'Times New Roman', serif;
+            white-space: nowrap;
+            overflow: auto;
+        }
+
+        .example {
+            background: #fff8e1;
+            border-left: 4px solid #ffa726;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .note {
+            background: #e8f5e9;
+            border-left: 4px solid #43a047;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .warning {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background: #43a047;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .back-link:hover {
+            background: #1b5e20;
+        }
+
+        .math {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+
+        .vector {
+            position: relative;
+            display: inline-block;
+            font-style: italic;
+            margin-top: 0.7em;
+        }
+
+        .vector::after {
+            content: '→';
+            position: absolute;
+            top: -0.7em;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            font-style: normal;
+        }
+
+        .limit {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 3px;
+        }
+
+        .limit-top {
+            font-size: 1em;
+            line-height: 1;
+        }
+
+        .limit-bottom {
+            font-size: 0.7em;
+            line-height: 1;
+            font-style: normal;
+            margin-top: 2px;
+        }
+
+        .fraction {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 3px;
+            font-size: 0.95em;
+        }
+
+        .numerator {
+            border-bottom: 1px solid currentColor;
+            padding: 0 5px 1px 5px;
+            display: block;
+            line-height: 1.1;
+        }
+
+        .denominator {
+            padding: 1px 5px 0 5px;
+            display: block;
+            line-height: 1.1;
+        }
+
+        .highlight {
+            background: #ffeb3b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .boxed {
+            border: 2px solid #43a047;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        .matrix {
+            display: inline-table;
+            border-collapse: collapse;
+            margin: 0 3px;
+            font-size: 0.85em;
+            vertical-align: middle;
+            border-left: 2px solid #333;
+            border-right: 2px solid #333;
+        }
+
+        .matrix td {
+            padding: 2px 8px;
+            text-align: center;
+            border: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Линейная алгебра и аналитическая геометрия</h1>
+            <div class="meta">
+                <strong>Дата:</strong> 30 октября 2026 года<br>
+                <strong>Группа:</strong> ДТ-660<br>
+                <strong>Тема:</strong> Уравнение плоскости и прямой в пространстве. Разбор задания № 3.
+            </div>
+        </div>
+
+        <p>На занятии преподаватель повторил определители матриц, векторное и смешанное произведения, объяснил способы задания плоскости и прямой в пространстве, а затем полностью разобрал третье задание контрольной работы.</p>
+
+        <h2>1. Сроки и контрольная работа</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Срок</th>
+                    <th>Что сказал преподаватель</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Конец октября</strong></td>
+                    <td>Первые три задания уже разобраны, можно выполнять их самостоятельно</td>
+                </tr>
+                <tr>
+                    <td><strong>Через две недели</strong></td>
+                    <td>Планируется разбор задания № 4</td>
+                </tr>
+                <tr>
+                    <td><strong>Ноябрь</strong></td>
+                    <td>Преподаватель предполагает разобрать задание № 5</td>
+                </tr>
+                <tr>
+                    <td><strong>Декабрь</strong></td>
+                    <td>Планируется разбор задания № 6</td>
+                </tr>
+                <tr>
+                    <td><strong>В течение декабря</strong></td>
+                    <td>Желательно полностью закончить контрольную работу</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="note">
+            <p><strong>Ориентир:</strong> желательно закончить все шесть заданий до Нового года.</p>
+        </div>
+
+        <h2>2. Важные нюансы оформления</h2>
+
+        <div class="warning">
+            <p>На вопрос студента о стандартах оформления преподаватель ответил:</p>
+            <blockquote>
+                <p><strong>«Нет стандартов никаких нет. Надо всё делать от руки».</strong></p>
+            </blockquote>
+        </div>
+
+        <p>Для ДТ-660:</p>
+        <ul>
+            <li><strong>Решения выполнять от руки</strong>, самостоятельно.</li>
+            <li>Не требуется набирать контрольную на компьютере.</li>
+            <li>Специальных требований к оформлению нет.</li>
+            <li>Главное — понимать вычисления и уметь их самостоятельно выполнить.</li>
+            <li>При вопросах можно писать преподавателю в чат.</li>
+        </ul>
+
+        <h2>3. Что преподаватель особенно выделил</h2>
+
+        <ul>
+            <li><strong>Минор и алгебраическое дополнение — не одно и то же.</strong> Знак зависит от чётности суммы номера строки и столбца.</li>
+            <li>При разложении определителя удобно выбирать строку, содержащую переменные <span class="math">x, y, z</span>.</li>
+            <li>В уравнении плоскости коэффициенты при <span class="math">x, y, z</span> — координаты её <strong>нормального вектора</strong>.</li>
+            <li>В каноническом уравнении прямой знаменатели — координаты <strong>направляющего вектора</strong>.</li>
+            <li>Для высоты пирамиды направляющим вектором служит нормальный вектор плоскости основания.</li>
+            <li>Для нахождения точки пересечения удобнее перейти к <strong>параметрическому уравнению прямой</strong>.</li>
+        </ul>
+
+        <h2>4. Формулы, которые нужно знать</h2>
+
+        <h3>4.1. Определители — повторение</h3>
+
+        <p>Определитель второго порядка:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">|a b; c d| = ad − bc</span>
+            </div>
+        </div>
+
+        <p>Алгебраическое дополнение элемента:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">A<sub>ij</sub> = (−1)<sup>i+j</sup> M<sub>ij</sub></span>
+            </div>
+        </div>
+
+        <p>Разложение определителя по строке <span class="math">i</span>:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">det A = Σ a<sub>ij</sub> A<sub>ij</sub></span>
+            </div>
+        </div>
+
+        <h3>4.2. Общее уравнение плоскости</h3>
+
+        <div class="note">
+            <p><strong>ОСНОВНАЯ ФОРМУЛА ЗАНЯТИЯ</strong></p>
+        </div>
+
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">Ax + By + Cz + D = 0</span>
+            </div>
+        </div>
+
+        <p>Нормальный вектор плоскости:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math"><span class="vector">n</span> = (A, B, C)</span>
+            </div>
+        </div>
+
+        <p>Уравнение плоскости через точку <span class="math">M₀(x₀, y₀, z₀)</span> с нормальным вектором <span class="math"><span class="vector">n</span> = (A, B, C)</span>:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">A(x − x₀) + B(y − y₀) + C(z − z₀) = 0</span>
+            </div>
+        </div>
+
+        <h3>4.3. Уравнение плоскости по трём точкам</h3>
+
+        <div class="warning">
+            <p>Преподаватель попросил обратить особое внимание на эту формулу!</p>
+        </div>
+
+        <div class="boxed">
+            <div class="formula">
+                <table class="matrix"><tr><td>x−x₁</td><td>y−y₁</td><td>z−z₁</td></tr>
+                    <tr><td>x₂−x₁</td><td>y₂−y₁</td><td>z₂−z₁</td></tr>
+                    <tr><td>x₃−x₁</td><td>y₃−y₁</td><td>z₃−z₁</td></tr></table>
+                <span class="math"> = 0</span>
+            </div>
+        </div>
+
+        <p><strong>Нюанс:</strong> в первой строке остаются переменные <span class="math">x, y, z</span>, во второй и третьей — конкретные числа. Поэтому определитель раскрывают по первой строке.</p>
+
+        <h3>4.4. Уравнение плоскости в отрезках</h3>
+
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">
+                    <span class="fraction">
+                        <span class="numerator">x</span>
+                        <span class="denominator">a</span>
+                    </span> + <span class="fraction">
+                        <span class="numerator">y</span>
+                        <span class="denominator">b</span>
+                    </span> + <span class="fraction">
+                        <span class="numerator">z</span>
+                        <span class="denominator">c</span>
+                    </span> = 1
+                </span>
+            </div>
+        </div>
+
+        <p>Где <span class="math">a, b, c</span> — ненулевые координаты точек пересечения плоскости с соответствующими осями.</p>
+
+        <h3>4.5. Каноническое уравнение прямой</h3>
+
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">
+                    <span class="fraction">
+                        <span class="numerator">x − x₀</span>
+                        <span class="denominator">p</span>
+                    </span> = <span class="fraction">
+                        <span class="numerator">y − y₀</span>
+                        <span class="denominator">q</span>
+                    </span> = <span class="fraction">
+                        <span class="numerator">z − z₀</span>
+                        <span class="denominator">r</span>
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        <p>Где:</p>
+        <ul>
+            <li><span class="math">M₀(x₀, y₀, z₀)</span> — точка на прямой</li>
+            <li><span class="math"><span class="vector">m</span> = (p, q, r)</span> — направляющий вектор прямой</li>
+        </ul>
+
+        <h3>4.6. Параметрическое уравнение прямой</h3>
+
+        <div class="note">
+            <p><strong>НЕОБХОДИМО ДЛЯ ПОИСКА ТОЧКИ ПЕРЕСЕЧЕНИЯ</strong></p>
+        </div>
+
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">
+                    x = x₀ + pt<br>
+                    y = y₀ + qt<br>
+                    z = z₀ + rt
+                </span>
+            </div>
+        </div>
+
+        <p><strong>Самое важное:</strong> для поиска точки пересечения прямой с плоскостью нужно подставить эти выражения в уравнение плоскости, найти <span class="math">t</span>, затем вычислить координаты точки.</p>
+
+        <h2>5. Разбор задания № 3</h2>
+
+        <div class="warning">
+            <p><strong>Внимание!</strong> Преподаватель использовал демонстрационный вариант для шифра `03` (<span class="math">n=3, m=10</span>). В своей контрольной используйте собственные значения <span class="math">n</span> и <span class="math">m</span>!</p>
+        </div>
+
+        <p>Даны вершины пирамиды:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">A(5, 1, 1), B(1, 5, 1), C(1, 1, 5), D(0, 0, 0)</span>
+            </div>
+        </div>
+
+        <p>Нужно найти уравнение плоскости ABC, уравнение высоты из D и точку пересечения высоты с основанием.</p>
+
+        <h3>а) Уравнение плоскости ABC</h3>
+
+        <p>Подставляем координаты в определитель:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <table class="matrix"><tr><td>x−5</td><td>y−1</td><td>z−1</td></tr>
+                    <tr><td>−4</td><td>4</td><td>0</td></tr>
+                    <tr><td>−4</td><td>0</td><td>4</td></tr></table>
+                <span class="math"> = 0</span>
+            </div>
+        </div>
+
+        <p>Раскрываем по первой строке:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">16(x − 5) + 16(y − 1) + 16(z − 1) = 0</span>
+            </div>
+        </div>
+
+        <p>Сокращаем на 16:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">x + y + z − 7 = 0</span>
+            </div>
+        </div>
+
+        <p>Нормальный вектор плоскости:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math"><span class="vector">n</span> = (1, 1, 1)</span>
+            </div>
+        </div>
+
+        <h3>б) Уравнение высоты из вершины D</h3>
+
+        <p>Высота перпендикулярна плоскости ABC. Поэтому её направляющий вектор совпадает с нормальным вектором плоскости.</p>
+
+        <p>Прямая проходит через <span class="math">D(0, 0, 0)</span>:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    <span class="fraction">
+                        <span class="numerator">x − 0</span>
+                        <span class="denominator">1</span>
+                    </span> = <span class="fraction">
+                        <span class="numerator">y − 0</span>
+                        <span class="denominator">1</span>
+                    </span> = <span class="fraction">
+                        <span class="numerator">z − 0</span>
+                        <span class="denominator">1</span>
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        <p>Получаем:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">x = y = z</span>
+            </div>
+        </div>
+
+        <h3>в) Точка пересечения высоты с основанием</h3>
+
+        <p>Переходим к параметрическому виду:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    x = t<br>
+                    y = t<br>
+                    z = t
+                </span>
+            </div>
+        </div>
+
+        <p>Подставляем в уравнение плоскости:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">t + t + t − 7 = 0</span>
+            </div>
+            <div class="formula">
+                <span class="math">
+                    3t = 7, &nbsp;&nbsp; t = <span class="fraction">
+                        <span class="numerator">7</span>
+                        <span class="denominator">3</span>
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        <p>Итог:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">
+                    H(<span class="fraction">
+                        <span class="numerator">7</span>
+                        <span class="denominator">3</span>
+                    </span>, <span class="fraction">
+                        <span class="numerator">7</span>
+                        <span class="denominator">3</span>
+                    </span>, <span class="fraction">
+                        <span class="numerator">7</span>
+                        <span class="denominator">3</span>
+                    </span>)
+                </span>
+            </div>
+        </div>
+
+        <h2>6. Где изучать материал</h2>
+
+        <p>В прикреплённой методичке к заданию № 3 преподаватель указывает кафедральный задачник:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Материал</th>
+                    <th>Страницы</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Определители малого порядка</td>
+                    <td>29–30</td>
+                </tr>
+                <tr>
+                    <td>Миноры и алгебраические дополнения</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td>Разложение определителя по строке и столбцу</td>
+                    <td>31</td>
+                </tr>
+                <tr>
+                    <td>Общее уравнение плоскости</td>
+                    <td>76</td>
+                </tr>
+                <tr>
+                    <td>Каноническое уравнение прямой</td>
+                    <td>79</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>7. Что нужно сделать</h2>
+
+        <ul>
+            <li>Выполнить задания № 1 и № 2, если они ещё не готовы</li>
+            <li>Самостоятельно решить задание № 3</li>
+            <li>Повторить определители, миноры и алгебраические дополнения</li>
+            <li>Выучить уравнение плоскости по трём точкам</li>
+            <li>Выучить каноническое и параметрическое уравнения прямой</li>
+            <li>Оформить решения от руки</li>
+            <li>Подготовиться к разбору задания № 4</li>
+            <li>Запланировать завершение всех шести заданий в декабре</li>
+        </ul>
+
+        <div class="note">
+            <p><strong>Итог:</strong> первые три задания уже можно решать дома, используя свой индивидуальный шифр. Преподаватель последовательно разобрал все три пункта задания № 3.</p>
+        </div>
+
+        <a href="../index.html" class="back-link">← Вернуться к расписанию</a>
+    </div>
+</body>
+</html>

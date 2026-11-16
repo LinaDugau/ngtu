@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МА — Пределы функций и неопределённости (15.10.2026)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .meta {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .meta strong {
+            color: #764ba2;
+        }
+
+        h2 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        h3 {
+            color: #667eea;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p, li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .formula-box {
+            background: #f8f9fa;
+            border: 2px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .formula {
+            font-size: 1.3em;
+            text-align: center;
+            margin: 15px 0;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .example {
+            background: #fff8e1;
+            border-left: 4px solid #ffa726;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1.05em;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .highlight {
+            background: #ffeb3b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .note {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .warning {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .back-link:hover {
+            background: #764ba2;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .math {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+
+        .vector {
+            position: relative;
+            display: inline-block;
+            font-style: italic;
+        }
+
+        .vector::after {
+            content: '→';
+            position: absolute;
+            top: -0.7em;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            font-style: normal;
+        }
+
+        .limit {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 3px;
+        }
+
+        .limit-top {
+            font-size: 1em;
+            line-height: 1;
+        }
+
+        .limit-bottom {
+            font-size: 0.7em;
+            line-height: 1;
+            font-style: normal;
+            margin-top: 2px;
+        }
+
+        .fraction {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 3px;
+            font-size: 0.95em;
+        }
+
+        .numerator {
+            border-bottom: 1px solid currentColor;
+            padding: 0 5px 1px 5px;
+            display: block;
+            line-height: 1.1;
+        }
+
+        .denominator {
+            padding: 1px 5px 0 5px;
+            display: block;
+            line-height: 1.1;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Математический анализ — собрание МА15.10</h1>
+            <div class="meta">
+                <strong>Дата:</strong> 15 октября 2026 года<br>
+                <strong>Группа:</strong> ДТ-660<br>
+                <strong>Преподаватель:</strong> Оксана Владиславовна<br>
+                <strong>Тема:</strong> Предел функции, раскрытие неопределённостей, эквивалентные бесконечно малые и бесконечно большие функции, первый и второй замечательные пределы.
+            </div>
+        </div>
+
+        <p>На занятии преподаватель завершала тему пределов, разбирала задания из первой контрольной работы и объясняла, как правильно оформлять решения. Особое внимание уделила <strong>срокам сдачи, использованию нейросетей, таблице эквивалентных функций и типичным ошибкам при вычислении пределов</strong>.</p>
+
+        <h2>1. Самое важное: сроки и контрольная работа</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Вопрос</th>
+                    <th>Что сказала преподаватель</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>КР № 1</strong></td>
+                    <td>Ориентировочный срок — <span class="highlight">18 октября 2026 года</span></td>
+                </tr>
+                <tr>
+                    <td>Что означает срок</td>
+                    <td>Желательно выполнить и отправить работу до 18 октября</td>
+                </tr>
+                <tr>
+                    <td>Если сдать позже</td>
+                    <td>Работу примут, но проверка может значительно задержаться</td>
+                </tr>
+                <tr>
+                    <td>Что отправлять</td>
+                    <td>Только письменные решения итогового теста модуля</td>
+                </tr>
+                <tr>
+                    <td>Где отправлять</td>
+                    <td>В разделе «Дисциплины» → «Математический анализ» → соответствующее задание</td>
+                </tr>
+                <tr>
+                    <td>Задания внутри тем</td>
+                    <td>Выполнять для тренировки, отдельно преподавателю не отправлять</td>
+                </tr>
+                <tr>
+                    <td>Следующие модули</td>
+                    <td>Преподаватель обещала открыть <strong>в субботу, 17 октября</strong></td>
+                </tr>
+                <tr>
+                    <td>КР № 1</td>
+                    <td>Преподаватель упомянула, что в ней <strong>8 задач</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="note">
+            <strong>Важное уточнение по дедлайну:</strong> преподаватель прямо сказала, что 18 октября — <em>условный срок</em>, а не дата, после которой контрольную перестанут принимать. Но после него она собиралась в первую очередь проверять уже вторые контрольные работы. Поэтому чем позже отправить первую, тем дольше можно ждать оценку.
+        </div>
+
+        <h3>Как исправлять оценки</h3>
+        <p>Если за тест получена, например, тройка, а письменное решение преподаватель оценила на четыре или пять, <strong>можно повторно пройти тест</strong>, чтобы повысить его результат.</p>
+        <p>Повторно отправлять письменное решение не требуется. Преподаватель объяснила это большой нагрузкой по проверке работ.</p>
+        <p>Если преподаватель поставила <strong>5 без комментария</strong>, значит, работа её устраивает. При снижении оценки она обычно указывает причину. Если объяснения нет, можно спросить в комментариях к заданию или в чате.</p>
+
+        <h2>2. Что преподаватель особенно подчеркнула</h2>
+
+        <div class="warning">
+            <strong>Оформление решений — один из главных моментов собрания.</strong>
+        </div>
+
+        <p>Преподаватель подробно объяснила, что ей не нравятся чрезмерно длинные решения, в которых расписаны очевидные школьные действия. Например, не нужно каждый раз выписывать общую формулу дискриминанта, если задача сводится к простому разложению квадратного трёхчлена.</p>
+
+        <p>Она отметила:</p>
+        <ul>
+            <li>Решение должно быть <strong>коротким, математически грамотным и понятным</strong>.</li>
+            <li>Не нужно писать много словесных объяснений там, где достаточно двух-трёх математических равенств.</li>
+            <li>Не стоит переписывать все промежуточные рассуждения нейросети.</li>
+            <li>При сокращении решения нельзя пропускать действительно важные преобразования.</li>
+            <li>Лучше ориентироваться на образцы решений преподавателя в курсе.</li>
+            <li>Нейросеть можно использовать для объяснения непонятной темы, но итоговое решение необходимо самостоятельно осмыслить и оформить.</li>
+        </ul>
+
+        <div class="note">
+            <strong>Для ДТ-660:</strong> преподаватель отдельно упомянула, что ваша группа не пользуется конспектами на экзамене. При этом тетради всё равно пригодятся во втором семестре.
+        </div>
+
+        <p>Также она разрешила более простую запись области определения функции: необязательно использовать полную запись множества в фигурных скобках, если условия и итоговая область определения указаны правильно.</p>
+
+        <h2>3. Формулы, которые нужно знать</h2>
+
+        <h3>Предел функции</h3>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math"><span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→x₀</span></span> f(x) = A</span>
+            </div>
+        </div>
+
+        <p>Определение предела по Коши:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">∀ε > 0  ∃δ > 0: 0 < |x − x₀| < δ  ⇒  |f(x) − A| < ε</span>
+            </div>
+        </div>
+
+        <p>Преподаватель объяснила: если <span class="math">x</span> приближается к <span class="math">x₀</span>, то значения функции приближаются к числу <span class="math">A</span>. При этом функция необязательно должна быть определена в самой точке <span class="math">x₀</span>.</p>
+
+        <p>Если предел конечен, функцию можно представить так:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">f(x) = A + α(x),  где α(x) → <strong>0</strong></span>
+            </div>
+        </div>
+        <p>Здесь <span class="math">α(x)</span> — бесконечно малая функция.</p>
+
+        <h3>Односторонние пределы</h3>
+        <p>Предел слева:</p>
+        <div class="formula">
+            <span class="math"><span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→x₀−0</span></span> f(x) = A<sub>−</sub></span>
+        </div>
+
+        <p>Предел справа:</p>
+        <div class="formula">
+            <span class="math"><span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→x₀+0</span></span> f(x) = A<sub>+</sub></span>
+        </div>
+
+        <div class="formula-box">
+            <strong>Главное условие существования конечного предела:</strong>
+            <div class="formula">
+                <span class="math">A<sub>−</sub> = A<sub>+</sub> = A</span>
+            </div>
+        </div>
+
+        <p>Если односторонние пределы различаются, конечного двустороннего предела нет.</p>
+
+        <div class="note">
+            <strong>Нюанс:</strong> преподаватель отдельно разобрала ситуации, когда односторонние пределы бесконечны или один из них конечен. Нужно различать запись бесконечного предела и случай, когда предел вообще не существует.
+        </div>
+
+        <h3>Раскрытие неопределённостей</h3>
+        <p>Основные неопределённости этого занятия:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    <span class="fraction"><span class="numerator">0</span><span class="denominator">0</span></span>,
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="fraction"><span class="numerator">∞</span><span class="denominator">∞</span></span>,
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    ∞ − ∞
+                </span>
+            </div>
+        </div>
+
+        <p><strong>Способы раскрытия:</strong></p>
+        <ul>
+            <li>Разложение многочленов на множители.</li>
+            <li>Сокращение общего множителя <span class="math">(x − x₀)</span>.</li>
+            <li>Домножение на сопряжённое выражение при наличии корней.</li>
+            <li>Выделение старшего слагаемого при <span class="math">x → ∞</span>.</li>
+            <li>Замена эквивалентными функциями.</li>
+        </ul>
+
+        <p>Для разности корней полезна формула:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">(√a − √b)(√a + √b) = a − b</span>
+            </div>
+        </div>
+
+        <h3>Эквивалентные функции</h3>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    f(x) ~ g(x)  ⇔  <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→x₀</span></span> <span class="fraction"><span class="numerator">f(x)</span><span class="denominator">g(x)</span></span> = 1
+                </span>
+            </div>
+        </div>
+
+        <p>Для многочлена при <span class="math">x → +∞</span>:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">a₀x<sup>n</sup> + a₁x<sup>n−1</sup> + … + a<sub>n</sub>  ~  a₀x<sup>n</sup></span>
+            </div>
+        </div>
+
+        <div class="warning">
+            <strong>Самое важное предупреждение преподавателя:</strong> нельзя бездумно заменять эквивалентными выражения в разности, если старшие слагаемые сокращаются.
+        </div>
+
+        <div class="example">
+            <strong>Например:</strong>
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→∞</span></span> <span class="fraction"><span class="numerator">(x + 5)³ − x³</span><span class="denominator">(x + 2)²</span></span>
+                </span>
+            </div>
+            <p>Нельзя заменить <span class="math">(x + 5)³</span> на <span class="math">x³</span> и получить ноль. Нужно раскрыть скобки:</p>
+            <div class="formula">
+                <span class="math">
+                    = <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→∞</span></span> <span class="fraction"><span class="numerator">15x² + 75x + 125</span><span class="denominator">(x + 2)²</span></span> = <strong>15</strong>
+                </span>
+            </div>
+        </div>
+
+        <h3>Первый замечательный предел</h3>
+        <div class="note">
+            <strong style="font-size: 1.2em;">ОБЯЗАТЕЛЬНАЯ ФОРМУЛА</strong>
+        </div>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→0</span></span> <span class="fraction"><span class="numerator">sin x</span><span class="denominator">x</span></span> = 1
+                </span>
+            </div>
+        </div>
+
+        <p>Следствия, которые преподаватель вывела на занятии:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→0</span></span> <span class="fraction"><span class="numerator">tan x</span><span class="denominator">x</span></span> = 1
+                </span>
+            </div>
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→0</span></span> <span class="fraction"><span class="numerator">arcsin x</span><span class="denominator">x</span></span> = 1
+                </span>
+            </div>
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→0</span></span> <span class="fraction"><span class="numerator">arctan x</span><span class="denominator">x</span></span> = 1
+                </span>
+            </div>
+        </div>
+
+        <h3>Второй замечательный предел</h3>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→∞</span></span> (1 + <span class="fraction"><span class="numerator">1</span><span class="denominator">x</span></span>)<sup>x</sup> = e
+                </span>
+            </div>
+        </div>
+
+        <p>Из него преподаватель получила ещё две важные формулы:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→0</span></span> <span class="fraction"><span class="numerator">ln(1 + x)</span><span class="denominator">x</span></span> = 1
+                </span>
+            </div>
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→0</span></span> <span class="fraction"><span class="numerator">e<sup>x</sup> − 1</span><span class="denominator">x</span></span> = 1
+                </span>
+            </div>
+        </div>
+
+        <h3>Таблица эквивалентных бесконечно малых</h3>
+        <p>Все соотношения ниже применяются при <span class="math">α → <strong>0</strong></span>.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Выражение</th>
+                    <th>Эквивалентно</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="math">sin α</span></td>
+                    <td><span class="math">α</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">tan α</span></td>
+                    <td><span class="math">α</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">arcsin α</span></td>
+                    <td><span class="math">α</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">arctan α</span></td>
+                    <td><span class="math">α</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">ln(1 + α)</span></td>
+                    <td><span class="math">α</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">e<sup>α</sup> − 1</span></td>
+                    <td><span class="math">α</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">(1 + α)<sup>a</sup> − 1</span></td>
+                    <td><span class="math">a · α</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="note">
+            Преподаватель сказала, что <strong>таблица есть в курсе</strong>, и показала, как применять её непосредственно к сложным выражениям без лишних замен переменных.
+        </div>
+
+        <h2>4. Примеры из занятия и контрольной работы</h2>
+
+        <h3>Пример № 1. Разложение многочленов</h3>
+        <div class="example">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→1</span></span> <span class="fraction"><span class="numerator">2x² − x − 1</span><span class="denominator">x³ + 2x² − x − 2</span></span>
+                </span>
+            </div>
+            <p>При подстановке получается <span class="math">0/0</span>. Разложим:</p>
+            <div class="formula">
+                <span class="math">
+                    = <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→1</span></span> <span class="fraction"><span class="numerator">(x − 1)(2x + 1)</span><span class="denominator">(x − 1)(x² + 3x + 2)</span></span>
+                </span>
+            </div>
+            <div class="formula">
+                <span class="math">
+                    = <span class="fraction"><span class="numerator">2 + 1</span><span class="denominator">1 + 3 + 2</span></span> = <strong><span class="fraction"><span class="numerator">1</span><span class="denominator">2</span></span></strong>
+                </span>
+            </div>
+        </div>
+
+        <h3>Пример № 2. Домножение на сопряжённое</h3>
+        <div class="example">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→4</span></span> <span class="fraction"><span class="numerator">x² − 3x − 4</span><span class="denominator">√(5 − x) − 1</span></span>
+                </span>
+            </div>
+            <div class="formula">
+                <span class="math">
+                    = <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→4</span></span> <span class="fraction"><span class="numerator">(x − 4)(x + 1)(√(5 − x) + 1)</span><span class="denominator">(5 − x) − 1</span></span>
+                </span>
+            </div>
+            <div class="formula">
+                <span class="math">
+                    = <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→4</span></span> <span class="fraction"><span class="numerator">(x − 4)(x + 1)(√(5 − x) + 1)</span><span class="denominator">4 − x</span></span>
+                </span>
+            </div>
+            <div class="formula">
+                <span class="math">= <strong>−10</strong></span>
+            </div>
+        </div>
+
+        <h3>Пример № 3. Использование таблицы эквивалентных</h3>
+        <div class="example">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→0</span></span> <span class="fraction"><span class="numerator">ln(1 + arcsin 3x)</span><span class="denominator">∛(1 + arctan x) − 1</span></span>
+                </span>
+            </div>
+            <p>Применяем эквивалентности:</p>
+            <div class="formula">
+                <span class="math">arcsin 3x ~ 3x,  arctan x ~ x</span>
+            </div>
+            <div class="formula">
+                <span class="math">ln(1 + arcsin 3x) ~ 3x</span>
+            </div>
+            <div class="formula">
+                <span class="math">
+                    ∛(1 + arctan x) − 1 ~ <span class="fraction"><span class="numerator">x</span><span class="denominator">3</span></span>
+                </span>
+            </div>
+            <p>Следовательно:</p>
+            <div class="formula">
+                <span class="math">
+                    = <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→0</span></span> <span class="fraction"><span class="numerator">3x</span><span class="denominator">x/3</span></span> = <strong>9</strong>
+                </span>
+            </div>
+            <p>Преподаватель назвала это примером хорошего, короткого решения.</p>
+        </div>
+
+        <h3>Пример № 4. Экспоненты</h3>
+        <div class="example">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→0</span></span> <span class="fraction"><span class="numerator">x²(e<sup>x</sup> − e<sup>−x</sup>)</span><span class="denominator">e<sup>x³+1</sup> − e</span></span>
+                </span>
+            </div>
+            <p>Выносим множители:</p>
+            <div class="formula">
+                <span class="math">
+                    = <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→0</span></span> <span class="fraction"><span class="numerator">x² e<sup>−x</sup>(e<sup>2x</sup> − 1)</span><span class="denominator">e(e<sup>x³</sup> − 1)</span></span>
+                </span>
+            </div>
+            <p>Используем:</p>
+            <div class="formula">
+                <span class="math">e<sup>2x</sup> − 1 ~ 2x,  e<sup>x³</sup> − 1 ~ x³,  e<sup>−x</sup> → 1</span>
+            </div>
+            <div class="formula">
+                <span class="math">
+                    = <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→0</span></span> <span class="fraction"><span class="numerator">2x³</span><span class="denominator">e · x³</span></span> = <strong><span class="fraction"><span class="numerator">2</span><span class="denominator">e</span></span></strong>
+                </span>
+            </div>
+            <div class="note">
+                <strong>Преподаватель уточнила, что примеры, разобранные в конце занятия, взяты из вашей контрольной работы.</strong>
+            </div>
+        </div>
+
+        <h2>5. Нюансы работы в системе</h2>
+        <ul>
+            <li><strong>Бесконечность</strong> в ответах вводится русской буквой <code>б</code>; преподаватель сказала, что большая <code>Б</code> тоже принимается.</li>
+            <li>Если важен знак, вводить <code>+б</code> или <code>-б</code> без пробелов.</li>
+            <li>Преподаватель планировала добавить также латинский вариант <code>inf</code>, но на момент занятия это было только намерение.</li>
+            <li>В заданиях на восстановление определения Коши фразы необходимо перетаскивать в правильном порядке сверху вниз.</li>
+            <li>Если учебник на платформе «Лань» не открывается, можно попробовать вход через учётную запись НГТУ. Преподаватель признала проблему с доступом и собиралась искать другую ссылку.</li>
+            <li>Вопросы можно задавать в MAX и в комментариях к заданиям.</li>
+        </ul>
+
+        <h2>6. Что будет на следующем занятии</h2>
+        <p>Преподаватель не успела подробно рассмотреть две темы и перенесла их на следующую лекцию:</p>
+        <ol>
+            <li><strong>Сравнение бесконечно малых функций.</strong></li>
+            <li><strong>Непрерывность функции.</strong></li>
+        </ol>
+
+        <p>Также она собиралась объяснить, почему для непрерывных функций можно переносить предел под знак функции:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">lim<sub>x<span class="vector">x</span>₀</sub> f(x) = f(lim<sub>x<span class="vector">x</span>₀</sub> x) = f(x₀)</span>
+            </div>
+        </div>
+        <p>Это верно при непрерывности <span class="math">f</span> в точке <span class="math">x₀</span>.</p>
+
+        <h2>7. Что сделать группе ДТ-660</h2>
+
+        <div class="note">
+            <strong>Контрольный список</strong>
+            <ol>
+                <li>Завершить КР № 1 и отправить письменные решения</li>
+                <li>Повторить способы раскрытия неопределённостей</li>
+                <li>Выучить первый и второй замечательные пределы</li>
+                <li>Изучить таблицу эквивалентных бесконечно малых</li>
+                <li>Разобрать примеры с корнями, логарифмами и экспонентами</li>
+                <li>Подготовиться к темам непрерывности и сравнения бесконечно малых</li>
+            </ol>
+        </div>
+
+        <div class="note">
+            <strong>Итог:</strong> на собрании 15 октября преподаватель объяснила, что КР № 1 желательно сдать до 18 октября, но опоздание не означает автоматический отказ в проверке. Главные математические темы — раскрытие неопределённостей, эквивалентные функции и таблица замечательных пределов. Особый акцент сделан на <strong>кратком самостоятельном оформлении решений</strong>, без лишних школьных формул и длинных объяснений нейросети.
+        </div>
+
+        <a href="../index.html" class="back-link">← Вернуться к расписанию</a>
+    </div>
+</body>
+</html>
+

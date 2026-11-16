@@ -667,7 +667,8 @@ const scheduleData = {
                 start_time: "2026-09-24T15:00:00+03:00",
                 end_time: "2026-09-24T16:30:00+03:00",
                 type: "webinar",
-                teacher: "Шеремет Оксана Владиславовна"
+                teacher: "Шеремет Оксана Владиславовна",
+                lecture_link: "lectures/ma-24-09-2026.html"
             }
         ],
         "25": [
@@ -705,7 +706,8 @@ const scheduleData = {
                 start_time: "2026-10-01T15:00:00+03:00",
                 end_time: "2026-10-01T16:30:00+03:00",
                 type: "webinar",
-                teacher: "Шеремет Оксана Владиславовна"
+                teacher: "Шеремет Оксана Владиславовна",
+                lecture_link: "lectures/ma-01-10-2026.html"
             }
         ],
         "2": [
@@ -738,19 +740,21 @@ const scheduleData = {
                 start_time: "2026-10-15T15:00:00+03:00",
                 end_time: "2026-10-15T16:30:00+03:00",
                 type: "webinar",
-                teacher: "Шеремет Оксана Владиславовна"
+                teacher: "Шеремет Оксана Владиславовна",
+                lecture_link: "lectures/ma-15-10-2026.html"
             }
         ],
         "16": [
             {
                 title: "Изучаем произведения векторов. Разбираем второе задание",
-                description: "",
+                description: "Определители матриц, векторное и смешанное произведения",
                 start_time: "2026-10-16T15:15:00+03:00",
                 end_time: "2026-10-16T16:15:00+03:00",
                 type: "webinar",
                 teacher: "Пономарев Константин Николаевич",
                 course_name: lectureNotes.linAlg.course_name,
-                course_id: lectureNotes.linAlg.course_id
+                course_id: lectureNotes.linAlg.course_id,
+                lecture_link: "lectures/la-16-10-2026.html"
             }
         ],
         "17": [
@@ -766,11 +770,12 @@ const scheduleData = {
         "22": [
             {
                 title: "Лекция МА",
-                description: null,
+                description: "Непрерывность функций, точки разрыва, асимптоты, сравнение бесконечно малых и бесконечно больших функций",
                 start_time: "2026-10-22T15:00:00+03:00",
                 end_time: "2026-10-22T16:30:00+03:00",
                 type: "webinar",
-                teacher: "Шеремет Оксана Владиславовна"
+                teacher: "Шеремет Оксана Владиславовна",
+                lecture_link: "lectures/ma-22-10-2026.html"
             }
         ],
         "29": [
@@ -783,6 +788,18 @@ const scheduleData = {
                 teacher: "Шеремет Оксана Владиславовна",
                 course_name: lectureNotes.mathAnalysis.course_name,
                 lecture_link: "lectures/ma-29-10-2026.html"
+            }
+        ],
+        "30": [
+            {
+                title: "Уравнение плоскости и уравнения прямой в пространстве",
+                description: "Учимся решать третье задание контрольной работы",
+                start_time: "2026-10-30T15:15:00+03:00",
+                end_time: "2026-10-30T16:45:00+03:00",
+                type: "webinar",
+                teacher: "Пономарев Константин Николаевич",
+                course_name: "Линейная алгебра и аналитическая геометрия",
+                lecture_link: "lectures/la-30-10-2026.html"
             }
         ]
     },
@@ -801,6 +818,16 @@ const scheduleData = {
         ],
         "12": [
             {
+                title: "Консультация по ОРГ",
+                description: "Можно задавать вопросы на счет сессии и экзамена по ОРГ",
+                start_time: "2026-11-12T15:00:00+03:00",
+                end_time: "2026-11-12T16:00:00+03:00",
+                type: "webinar",
+                teacher: "Красильникова Екатерина Ивановна",
+                course_name: "Основы российской государственности",
+                lecture_link: "lectures/org-12-11-2026.html"
+            },
+            {
                 title: "Лекция МА — Исследование функций",
                 description: "Приложение дифференциального исчисления к исследованию функций",
                 start_time: "2026-11-12T15:00:00+03:00",
@@ -809,6 +836,18 @@ const scheduleData = {
                 teacher: "Шеремет Оксана Владиславовна",
                 course_name: lectureNotes.mathAnalysis.course_name,
                 lecture_link: "lectures/ma-12-11-2026.html"
+            }
+        ],
+        "13": [
+            {
+                title: "Операции с матрицами",
+                description: "Разбираем 4 задание",
+                start_time: "2026-11-13T15:15:00+03:00",
+                end_time: "2026-11-13T16:45:00+03:00",
+                type: "webinar",
+                teacher: "Пономарев Константин Николаевич",
+                course_name: "Линейная алгебра и аналитическая геометрия",
+                lecture_link: "lectures/la-13-11-2026.html"
             }
         ],
         "14": [
@@ -1413,9 +1452,9 @@ function showDayInfo(year, month, day, events) {
                     <div class="event-description">${escapeHtml(event.description)}</div>
                 ` : ''}
 
-                ${event.lecture_link ? `
+                ${(event.lecture_link || event.lecture_file) ? `
                     <div style="margin-top: 20px;">
-                        <a href="${event.lecture_link}" class="lecture-link" target="_blank" style="display: inline-block; padding: 12px 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.2s;">
+                        <a href="${event.lecture_link || event.lecture_file}" class="lecture-link" target="_blank" style="display: inline-block; padding: 12px 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.2s;">
                             📖 Подробный конспект лекции
                         </a>
                     </div>

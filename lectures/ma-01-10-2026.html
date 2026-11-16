@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МА — Пределы и непрерывность (01.10.2026)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .meta {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .meta strong {
+            color: #764ba2;
+        }
+
+        h2 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        h3 {
+            color: #667eea;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p, li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .formula-box {
+            background: #f8f9fa;
+            border: 2px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .formula {
+            font-size: 1.3em;
+            text-align: center;
+            margin: 15px 0;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .example {
+            background: #fff8e1;
+            border-left: 4px solid #ffa726;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1.05em;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .highlight {
+            background: #ffeb3b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .note {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .warning {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .back-link:hover {
+            background: #764ba2;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .math {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+
+        .vector {
+            position: relative;
+            display: inline-block;
+            font-style: italic;
+        }
+
+        .vector::after {
+            content: '→';
+            position: absolute;
+            top: -0.7em;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            font-style: normal;
+        }
+
+        .limit {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 3px;
+        }
+
+        .limit-top {
+            font-size: 1em;
+            line-height: 1;
+        }
+
+        .limit-bottom {
+            font-size: 0.7em;
+            line-height: 1;
+            font-style: normal;
+            margin-top: 2px;
+        }
+
+        .fraction {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 3px;
+            font-size: 0.95em;
+        }
+
+        .numerator {
+            border-bottom: 1px solid currentColor;
+            padding: 0 5px 1px 5px;
+            display: block;
+            line-height: 1.1;
+        }
+
+        .denominator {
+            padding: 1px 5px 0 5px;
+            display: block;
+            line-height: 1.1;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Математический анализ — собрание МА01.10</h1>
+            <div class="meta">
+                <strong>Дата:</strong> 1 октября 2026 года<br>
+                <strong>Группа:</strong> ДТ-660<br>
+                <strong>Преподаватель:</strong> Оксана Владиславовна<br>
+                <strong>Тема:</strong> Предел и непрерывность функции действительной переменной. Числовые последовательности, пределы последовательностей, эквивалентные последовательности и второй замечательный предел.
+            </div>
+        </div>
+
+        <p>На занятии преподаватель объяснила порядок прохождения курса, сроки сдачи первой контрольной работы, требования к оформлению решений и основные формулы для вычисления пределов. Также разобрала примеры и рассказала, что необходимо изучить к следующему занятию.</p>
+
+        <h2>1. Самое важное: сроки, контрольная работа и оформление</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Вопрос</th>
+                    <th>Что сказала преподаватель</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Первая контрольная работа</td>
+                    <td><strong>Сдать к 18 октября</strong></td>
+                </tr>
+                <tr>
+                    <td>Где находится</td>
+                    <td>Курс с жёлтой каской → Модуль 2 → Тема 2.9 «Контрольная работа № 1»</td>
+                </tr>
+                <tr>
+                    <td>Что выполнять</td>
+                    <td>Завершающий тест модуля 2 и письменные решения его заданий</td>
+                </tr>
+                <tr>
+                    <td>Как оформлять</td>
+                    <td>От руки на листах либо в Word</td>
+                </tr>
+                <tr>
+                    <td>Формат отправки</td>
+                    <td><span class="highlight">Строго один PDF-файл</span>, содержащий все решения</td>
+                </tr>
+                <tr>
+                    <td>Куда отправлять</td>
+                    <td>«Дисциплины» → «Математический анализ» → «КР № 1»</td>
+                </tr>
+                <tr>
+                    <td>Проверка</td>
+                    <td>Преподаватель проверяет работу и оставляет отзыв</td>
+                </tr>
+                <tr>
+                    <td>Использование нейросетей</td>
+                    <td><span class="highlight">За нейрорешения — 0 баллов</span></td>
+                </tr>
+                <tr>
+                    <td>Подготовительный модуль</td>
+                    <td>Отдельно отправлять не требуется</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="warning">
+            <strong>Особенно важно:</strong> преподаватель подчеркнула, что нельзя отправлять 10 отдельных фотографий или файлов с непонятными названиями. Все страницы необходимо объединить в <strong>один PDF</strong>. Работы из множества отдельных изображений она возвращает.
+        </div>
+
+        <h3>Порядок выполнения контрольной</h3>
+        <ol>
+            <li>Пройти учебные темы модуля 2.</li>
+            <li>Выполнить завершающий тест.</li>
+            <li>Записать подробные решения заданий на листах или в Word.</li>
+            <li>Объединить решения в один PDF.</li>
+            <li>Прикрепить PDF в задании «КР № 1» в разделе дисциплин.</li>
+        </ol>
+
+        <div class="note">
+            <strong>Нюанс:</strong> тест и письменная контрольная связаны между собой, но отправлять PDF нужно именно в задание дисциплины, а не просто проходить тест.
+        </div>
+
+        <h2>2. Что преподаватель особо выделила</h2>
+        <ul>
+            <li><strong>Необходимо понимать разницу между значением функции и её пределом.</strong> Функция может никогда не принимать определённое значение, но стремиться к нему.</li>
+            <li><strong>Бесконечность — не обычное действительное число.</strong> При вычислении пределов важно понимать, как изменяются выражения при стремлении аргумента к бесконечности.</li>
+            <li><strong>Неопределённости нельзя считать обычными арифметическими действиями.</strong> Например, ∞/∞ и 0/0 требуют преобразования.</li>
+            <li><strong>Многочлен при стремлении аргумента к бесконечности эквивалентен своему старшему члену.</strong> Это основной приём для нахождения пределов отношений многочленов.</li>
+            <li><strong>Эквивалентные последовательности можно заменять друг на друга в отношениях при вычислении пределов.</strong></li>
+            <li><strong>Второй замечательный предел нужно знать обязательно.</strong> Преподаватель несколько раз повторила его значение и показала применение.</li>
+            <li><strong>Доказательства сложных теорем учить не требуется.</strong> Они приведены в курсе для желающих разобраться глубже.</li>
+            <li><strong>Нужно уметь решать простые задачи, а не только запоминать определения.</strong></li>
+        </ul>
+
+        <div class="note">
+            Преподаватель отдельно отметила, что требования к уровню математического анализа умеренные: главное — освоить основные формулы и научиться правильно применять их на практике.
+        </div>
+
+        <h2>3. Формулы, которые необходимо знать</h2>
+
+        <h3>Предел последовательности</h3>
+        <p>Последовательность <span class="math">a<sub>n</sub></span> сходится к числу <span class="math">A</span>, если:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math"><span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">n→∞</span></span> a<sub>n</sub> = A</span>
+            </div>
+        </div>
+
+        <p>Формальное определение:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">∀ε > 0  ∃N  ∀n > N: |a<sub>n</sub> − A| < ε</span>
+            </div>
+        </div>
+
+        <p>То есть начиная с некоторого номера все элементы последовательности находятся сколь угодно близко к числу <span class="math">A</span>.</p>
+
+        <div class="example">
+            <strong>Пример:</strong>
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">n→∞</span></span> <span class="fraction"><span class="numerator">1</span><span class="denominator">n</span></span> = 0
+                </span>
+            </div>
+            <div class="note">
+                <strong>Нюанс:</strong> для любого натурального <span class="math">n</span> дробь <span class="math">1/n</span> не равна нулю, но её предел равен нулю.
+            </div>
+        </div>
+
+        <h3>Бесконечно малые и бесконечно большие величины</h3>
+        <p>Основные соотношения, которые преподаватель просила запомнить:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    <span class="fraction"><span class="numerator">1</span><span class="denominator">∞</span></span> → <strong>0</strong>
+                </span>
+            </div>
+            <div class="formula">
+                <span class="math">
+                    <span class="fraction"><span class="numerator">1</span><span class="denominator">0</span></span> → ∞
+                </span>
+            </div>
+        </div>
+
+        <div class="note">
+            <p>Это условные обозначения поведения величин в пределах, а не обычное деление на ноль.</p>
+            <p>Более строго:</p>
+            <div class="formula">
+                <span class="math">
+                    a<sub>n</sub> → +∞  ⇒  <span class="fraction"><span class="numerator">1</span><span class="denominator">a<sub>n</sub></span></span> → <strong>0</strong>
+                </span>
+            </div>
+            <p>Если <span class="math">a<sub>n</sub> → <strong>0</strong></span> и <span class="math">a<sub>n</sub> ≠ 0</span>, то <span class="math">1/a<sub>n</sub></span> неограниченно возрастает по модулю; знак зависит от того, с какой стороны <span class="math">a<sub>n</sub></span> приближается к нулю.</p>
+        </div>
+
+        <div class="warning">
+            <strong>Важно:</strong> преподаватель использовала запись <span class="math">1/0</span> как условное обозначение. В обычной арифметике деление на ноль запрещено.
+        </div>
+
+        <h3>Неопределённости</h3>
+        <p>Преподаватель выделила три формы:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    <span class="fraction"><span class="numerator">∞</span><span class="denominator">∞</span></span>
+                </span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="math">
+                    <span class="fraction"><span class="numerator">0</span><span class="denominator">0</span></span>
+                </span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="math">1<sup>∞</sup></span>
+            </div>
+        </div>
+        <p>Их нельзя сразу считать равными конкретному числу. Сначала необходимо преобразовать выражение.</p>
+
+        <h3>Эквивалентные последовательности</h3>
+        <p>Две последовательности эквивалентны, если:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">n→∞</span></span> <span class="fraction"><span class="numerator">a<sub>n</sub></span><span class="denominator">b<sub>n</sub></span></span> = 1
+                </span>
+            </div>
+        </div>
+        <p>Обозначение: <span class="math">a<sub>n</sub> ~ b<sub>n</sub></span></p>
+
+        <div class="note">
+            <strong>Главное правило:</strong> многочлен при <span class="math">n → ∞</span> эквивалентен своему старшему члену.
+        </div>
+
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">a<sub>0</sub>n<sup>k</sup> + a<sub>1</sub>n<sup>k−1</sup> + … + a<sub>k</sub>  ~  a<sub>0</sub>n<sup>k</sup></span>
+            </div>
+        </div>
+
+        <div class="example">
+            <strong>Например:</strong>
+            <div class="formula"><span class="math">n² + n + 1000  ~  n²</span></div>
+            <div class="formula"><span class="math">n³ + n² + 1  ~  n³</span></div>
+            <p>Поэтому при вычислении пределов отношений многочленов можно переходить к старшим членам.</p>
+        </div>
+
+        <h3>Второй замечательный предел</h3>
+        <div class="note">
+            <strong style="font-size: 1.2em;">ОСНОВНАЯ ФОРМУЛА</strong>
+        </div>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">n→∞</span></span> (1 + <span class="fraction"><span class="numerator">1</span><span class="denominator">n</span></span>)<sup>n</sup> = e
+                </span>
+            </div>
+            <div class="formula">
+                <span class="math">e ≈ 2,71828</span>
+            </div>
+        </div>
+
+        <p>Вторая форма, которую преподаватель просила освоить:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">α→0</span></span> (1 + α)<sup>1/α</sup> = e
+                </span>
+            </div>
+        </div>
+
+        <p>Для последовательности <span class="math">α<sub>n</sub> → <strong>0</strong></span> аналогично:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">n→∞</span></span> (1 + α<sub>n</sub>)<sup>1/α<sub>n</sub></sup> = e
+                </span>
+            </div>
+        </div>
+
+        <div class="note">
+            <strong>Нюанс:</strong> чтобы применить формулу, показатель степени нужно привести к виду <span class="math">1/α<sub>n</sub></span>. Если в показателе остаётся коэффициент, он становится степенью числа <span class="math">e</span>.
+        </div>
+
+        <h3>Пределы функций</h3>
+        <p>Определение предела функции:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math"><span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→x₀</span></span> f(x) = A</span>
+            </div>
+        </div>
+
+        <p>Условие непрерывности функции в точке:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math"><span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→x₀</span></span> f(x) = f(x₀)</span>
+            </div>
+        </div>
+
+        <div class="note">
+            На этом собрании преподаватель подробно разбирала именно пределы и последовательности. Непрерывность входит в название модуля, но её подробный разбор в записи ещё не проводился.
+        </div>
+
+        <h2>4. Примеры, разобранные преподавателем</h2>
+
+        <h3>Пример № 1. Предел отношения многочленов</h3>
+        <div class="example">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">n→∞</span></span> <span class="fraction"><span class="numerator">n² + 1</span><span class="denominator">n² + n + 1000</span></span>
+                </span>
+            </div>
+            <p>Оставляем старшие члены:</p>
+            <div class="formula">
+                <span class="math">
+                    = <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">n→∞</span></span> <span class="fraction"><span class="numerator">n²</span><span class="denominator">n²</span></span> = <strong>1</strong>
+                </span>
+            </div>
+            <p>Преподаватель показала два способа: вынесение <span class="math">n²</span> за скобки и замену многочленов эквивалентными старшими членами.</p>
+        </div>
+
+        <h3>Пример № 2. Предел с разными степенями</h3>
+        <div class="example">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">n→∞</span></span> <span class="fraction"><span class="numerator">n³ + n² + 1</span><span class="denominator">n² + 1</span></span>
+                </span>
+            </div>
+            <p>Переходим к старшим членам:</p>
+            <div class="formula">
+                <span class="math">
+                    = <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">n→∞</span></span> <span class="fraction"><span class="numerator">n³</span><span class="denominator">n²</span></span> = <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">n→∞</span></span> n = <strong>+∞</strong>
+                </span>
+            </div>
+            <div class="note">
+                <strong>Нюанс по вводу ответа:</strong> преподаватель сказала, что в системе бесконечность можно обозначать русской буквой <code>б</code>. Если знак бесконечности в задаче существенен, его нужно учитывать.
+            </div>
+        </div>
+
+        <h3>Пример № 3. Раскрытие скобок перед вычислением предела</h3>
+        <div class="example">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">n→∞</span></span> <span class="fraction"><span class="numerator">(n + 1)³ − n³</span><span class="denominator">2n²</span></span>
+                </span>
+            </div>
+            <p>Раскрываем куб суммы:</p>
+            <div class="formula">
+                <span class="math">
+                    = <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">n→∞</span></span> <span class="fraction"><span class="numerator">n³ + 3n² + 3n + 1 − n³</span><span class="denominator">2n²</span></span>
+                </span>
+            </div>
+            <p>Сокращаем <span class="math">n³</span>, оставляем старшие члены:</p>
+            <div class="formula">
+                <span class="math">
+                    = <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">n→∞</span></span> <span class="fraction"><span class="numerator">3n²</span><span class="denominator">2n²</span></span> = <strong><span class="fraction"><span class="numerator">3</span><span class="denominator">2</span></span></strong>
+                </span>
+            </div>
+            <p>Преподаватель привела этот пример как тип задания, которое необходимо научиться решать за неделю.</p>
+        </div>
+
+        <h3>Пример № 4. Второй замечательный предел</h3>
+        <div class="example">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">n→∞</span></span> (1 + <span class="fraction"><span class="numerator">1</span><span class="denominator">3n</span></span>)<sup>n</sup>
+                </span>
+            </div>
+            <p>Приводим показатель степени к нужному виду:</p>
+            <div class="formula">
+                <span class="math">
+                    = <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">n→∞</span></span> [(1 + <span class="fraction"><span class="numerator">1</span><span class="denominator">3n</span></span>)<sup>3n</sup>]<sup>1/3</sup>
+                </span>
+            </div>
+            <p>По второму замечательному пределу:</p>
+            <div class="formula">
+                <span class="math">= <strong>e<sup>1/3</sup></strong></span>
+            </div>
+        </div>
+
+        <h3>Пример № 5. Второй замечательный предел с отрицательным слагаемым</h3>
+        <div class="example">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">n→∞</span></span> (1 − <span class="fraction"><span class="numerator">1</span><span class="denominator">n²</span></span>)<sup>3n²/4</sup>
+                </span>
+            </div>
+            <p>Пусть <span class="math">α<sub>n</sub> = −1/n²</span>. Тогда:</p>
+            <div class="formula">
+                <span class="math">
+                    <span class="fraction"><span class="numerator">3n²</span><span class="denominator">4</span></span> = −<span class="fraction"><span class="numerator">3</span><span class="denominator">4α<sub>n</sub></span></span>
+                </span>
+            </div>
+            <p>Получаем:</p>
+            <div class="formula">
+                <span class="math">
+                    = <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">n→∞</span></span> [(1 + α<sub>n</sub>)<sup>1/α<sub>n</sub></sup>]<sup>−3/4</sup> = <strong>e<sup>−3/4</sup></strong>
+                </span>
+            </div>
+        </div>
+
+        <h2>5. Что нужно изучить к следующему занятию</h2>
+        <p>Преподаватель назвала конкретные темы курса:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Раздел</th>
+                    <th>Что изучить</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>2.1</strong></td>
+                    <td>Материал о последовательностях и пределах</td>
+                </tr>
+                <tr>
+                    <td><strong>2.2</strong></td>
+                    <td>Предел последовательности и второй замечательный предел</td>
+                </tr>
+                <tr>
+                    <td>Дополнительно</td>
+                    <td>Шкала роста — преподаватель обещала объяснить её на следующем занятии</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="note">
+            За неделю нужно научиться находить пределы отношений многочленов и применять второй замечательный предел.
+        </div>
+
+        <div class="note">
+            <strong>Нюанс по доступу к курсу:</strong> темы открываются последовательно. Если возле темы стоит замок, сначала необходимо завершить предыдущую. Преподаватель подтвердила, что новые разделы открываются постепенно.
+        </div>
+
+        <h2>6. Что будет на следующем собрании</h2>
+        <p>Преподаватель сообщила, что на следующем занятии планируется:</p>
+        <ul>
+            <li>Решение примеров по второму замечательному пределу.</li>
+            <li>Объяснение шкалы роста.</li>
+            <li>Продолжение изучения пределов функций.</li>
+            <li>Разбор вопросов и задач, с которыми у студентов возникли сложности.</li>
+        </ul>
+        <p>Она попросила приходить с конкретными вопросами и примерами, которые не получилось решить самостоятельно.</p>
+
+        <h2>7. Что нужно сделать группе ДТ-660</h2>
+        
+        <div class="note">
+            <strong>Список задач</strong>
+            <ol>
+                <li>Изучить темы 2.1 и 2.2</li>
+                <li>Выучить основные формулы пределов и эквивалентности</li>
+                <li>Научиться находить пределы отношений многочленов</li>
+                <li>Разобрать второй замечательный предел</li>
+                <li>Пройти модуль 2 и выполнить контрольный тест</li>
+                <li>Оформить решения в один PDF и сдать КР № 1</li>
+            </ol>
+        </div>
+
+        <div class="warning">
+            <strong>Срок первой контрольной: 18 октября 2026 года</strong>
+        </div>
+
+        <div class="note">
+            <strong>Итог:</strong> на собрании преподаватель сделала основной акцент на самостоятельном вычислении пределов, эквивалентности многочленов и втором замечательном пределе. Для контрольной необходимо не просто получить ответы в тесте, а представить письменные решения в одном PDF. Сложные доказательства учить не нужно, но основные формулы и способы преобразования выражений знать обязательно.
+        </div>
+
+        <a href="../index.html" class="back-link">← Вернуться к расписанию</a>
+    </div>
+</body>
+</html>

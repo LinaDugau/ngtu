@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МА — Функции и системы координат (24.09.2026)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .meta {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .meta strong {
+            color: #764ba2;
+        }
+
+        h2 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        h3 {
+            color: #667eea;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p, li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .formula-box {
+            background: #f8f9fa;
+            border: 2px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .formula {
+            font-size: 1.3em;
+            text-align: center;
+            margin: 15px 0;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .example {
+            background: #fff8e1;
+            border-left: 4px solid #ffa726;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1.05em;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .highlight {
+            background: #ffeb3b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .note {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .warning {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .back-link:hover {
+            background: #764ba2;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .math {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+
+        .vector {
+            position: relative;
+            display: inline-block;
+            font-style: italic;
+        }
+
+        .vector::after {
+            content: '→';
+            position: absolute;
+            top: -0.7em;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            font-style: normal;
+        }
+
+        .limit {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 3px;
+        }
+
+        .limit-top {
+            font-size: 1em;
+            line-height: 1;
+        }
+
+        .limit-bottom {
+            font-size: 0.7em;
+            line-height: 1;
+            font-style: normal;
+            margin-top: 2px;
+        }
+
+        .fraction {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 3px;
+            font-size: 0.95em;
+        }
+
+        .numerator {
+            border-bottom: 1px solid currentColor;
+            padding: 0 5px 1px 5px;
+            display: block;
+            line-height: 1.1;
+        }
+
+        .denominator {
+            padding: 1px 5px 0 5px;
+            display: block;
+            line-height: 1.1;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Математический анализ — занятие МА24.09</h1>
+            <div class="meta">
+                <strong>Дата:</strong> 24 сентября 2026 года<br>
+                <strong>Группа:</strong> ДТ-660<br>
+                <strong>Преподаватель:</strong> Оксана Владиславовна<br>
+                <strong>Тема:</strong> Повторение функций, их свойств и графиков. Способы задания функций: явный, неявный, параметрический и полярный. Подготовка к теме пределов.
+            </div>
+        </div>
+
+        <h2>1. Что преподаватель сказала о сроках и контрольных</h2>
+
+        <div class="warning">
+            <strong>Главный срок — до 18 октября 2026 года необходимо выполнить контрольную работу № 1.</strong>
+        </div>
+
+        <ul>
+            <li><strong>Модуль 1:</strong> проверочные тесты выполняются для самопроверки. Письменные решения отправлять не нужно.</li>
+            <li><strong>Модули 2, 3 и 4:</strong> контрольные работы необходимо выполнять с письменными решениями.</li>
+            <li><strong>КР № 1 находится во втором модуле.</strong> Именно её преподаватель просит выполнить до 18 октября.</li>
+            <li><strong>Жёстких дедлайнов для остальных тестов нет:</strong> преподаватель сказала, что их можно проходить в течение семестра до начала сессии.</li>
+            <li><strong>Лучше сдавать заранее</strong>, чтобы преподаватель успевала постепенно проверять работы, а не получала всё в последние дни декабря.</li>
+            <li><strong>Следующее занятие — через неделю.</strong> На нём начнут подробно разбирать пределы и задания первой контрольной. Преподаватель предупредила, что для этой темы понадобится примерно три лекции.</li>
+        </ul>
+
+        <h3>Как проходить тесты</h3>
+        <p>Преподаватель объяснила, что количество попыток зависит от настроек конкретного вопроса.</p>
+        <p>Если попытки закончились и хочется улучшить оценку, можно завершить тему и пройти её заново. При повторном прохождении могут появиться другие вопросы.</p>
+        <div class="note">
+            <strong>Важно:</strong> завершение темы обновляет набор вопросов, но не означает, что у каждого отдельного вопроса всегда неограниченное число попыток.
+        </div>
+
+        <h2>2. Важные организационные нюансы</h2>
+        <ul>
+            <li>Заходить в учебный курс нужно <strong>через раздел «Дисциплины»</strong>.</li>
+            <li>Использовать только тот курс, который прикреплён к вашей дисциплине. Преподаватель отдельно сказала, что курс № 70 не предназначен для вашей группы: она отделяет заочников от очников.</li>
+            <li>В разделе «Задания» есть ссылки на контрольные работы. По ним можно перейти к соответствующим тестам.</li>
+            <li>Записи лекций доступны в календаре событий.</li>
+            <li>Преподаватель пообещала подобрать дополнительную литературу для более глубокого изучения матанализа.</li>
+        </ul>
+
+        <h2>3. Формулы и определения, которые нужно знать</h2>
+
+        <h3>Функция и её свойства</h3>
+        <p>Функция в явном виде:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">y = f(x)</span>
+            </div>
+        </div>
+        <p><span class="math">D(f)</span> — область определения, <span class="math">E(f)</span> — множество значений.</p>
+
+        <p><strong>Возрастающая функция:</strong></p>
+        <div class="formula">
+            <span class="math">x₁ < x₂  ⇒  f(x₁) < f(x₂)</span>
+        </div>
+
+        <p><strong>Убывающая функция:</strong></p>
+        <div class="formula">
+            <span class="math">x₁ < x₂  ⇒  f(x₁) > f(x₂)</span>
+        </div>
+
+        <p><strong>Ограниченная функция:</strong></p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">|f(x)| ≤ M</span>
+            </div>
+        </div>
+        <p>для некоторого <span class="math">M > 0</span> и всех <span class="math">x</span> из рассматриваемой области.</p>
+
+        <p><strong>Периодическая функция:</strong></p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">f(x + T) = f(x)</span>
+            </div>
+        </div>
+        <p><span class="math">T > 0</span> — период. Преподаватель подчеркнула, что в заданиях нужно указывать <strong>основной (наименьший положительный) период</strong>, а не любое его кратное.</p>
+
+        <p><strong>Чётная функция:</strong></p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">f(−x) = f(x)</span>
+            </div>
+        </div>
+        <p>График симметричен относительно оси <span class="math">Oy</span>.</p>
+
+        <p><strong>Нечётная функция:</strong></p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">f(−x) = −f(x)</span>
+            </div>
+        </div>
+        <p>График симметричен относительно начала координат.</p>
+
+        <h3>Обратная функция</h3>
+        <p>Если функция строго монотонна на выбранном промежутке, можно определить обратную функцию:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">y = f<sup>−1</sup>(x)</span>
+            </div>
+        </div>
+
+        <p>Основные соотношения:</p>
+        <div class="formula">
+            <span class="math">f(f<sup>−1</sup>(x)) = x</span>
+        </div>
+        <div class="formula">
+            <span class="math">f<sup>−1</sup>(f(x)) = x</span>
+        </div>
+
+        <p>Графики прямой и обратной функций симметричны относительно прямой:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">y = x</span>
+            </div>
+        </div>
+
+        <div class="example">
+            <strong>Примеры:</strong>
+            <div class="formula">
+                <span class="math">y = x²,  x ≥ 0  ⟷  y = √x</span>
+            </div>
+            <div class="formula">
+                <span class="math">y = a<sup>x</sup>  ⟷  y = log<sub>a</sub> x</span>
+            </div>
+        </div>
+
+        <h3>Основные элементарные функции</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Функция</th>
+                    <th>Что необходимо помнить</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="math">y = x<sup>α</sup></span></td>
+                    <td>Степенная функция; область определения зависит от показателя</td>
+                </tr>
+                <tr>
+                    <td><span class="math">y = a<sup>x</sup></span></td>
+                    <td><span class="math">a > 0, a ≠ 1</span>; проходит через <span class="math">(0; 1)</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">y = log<sub>a</sub> x</span></td>
+                    <td><span class="math">x > 0, a > 0, a ≠ 1</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">y = sin x</span></td>
+                    <td>Значения от −1 до 1, период <span class="math">2π</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">y = cos x</span></td>
+                    <td>Значения от −1 до 1, период <span class="math">2π</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">y = tan x</span></td>
+                    <td><span class="math">x ≠ π/2 + πk</span>, период <span class="math">π</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">y = cot x</span></td>
+                    <td><span class="math">x ≠ πk</span>, период <span class="math">π</span></td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Здесь <span class="math">k ∈ ℤ</span>.</p>
+
+        <p>Для обратных тригонометрических функций:</p>
+        <div class="formula">
+            <span class="math">arcsin x ∈ [−π/2; π/2]</span>
+        </div>
+        <div class="formula">
+            <span class="math">arccos x ∈ [0; π]</span>
+        </div>
+        <div class="formula">
+            <span class="math">arctan x ∈ (−π/2; π/2)</span>
+        </div>
+        <div class="formula">
+            <span class="math">arccot x ∈ (0; π)</span>
+        </div>
+
+        <h2>4. Преобразования графиков — важная часть занятия</h2>
+        <p>Преподаватель подробно разобрала сдвиги, растяжения, сжатия и отражения графиков.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Формула</th>
+                    <th>Преобразование</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="math">y = f(x − a)</span></td>
+                    <td>Сдвиг вправо на <span class="math">a</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">y = f(x + a)</span></td>
+                    <td>Сдвиг влево на <span class="math">a</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">y = f(x) + a</span></td>
+                    <td>Сдвиг вверх на <span class="math">a</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">y = f(x) − a</span></td>
+                    <td>Сдвиг вниз на <span class="math">a</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">y = f(kx), k > 1</span></td>
+                    <td>Сжатие по горизонтали в <span class="math">k</span> раз</td>
+                </tr>
+                <tr>
+                    <td><span class="math">y = f(x/k), k > 1</span></td>
+                    <td>Растяжение по горизонтали в <span class="math">k</span> раз</td>
+                </tr>
+                <tr>
+                    <td><span class="math">y = k·f(x), k > 1</span></td>
+                    <td>Растяжение по вертикали в <span class="math">k</span> раз</td>
+                </tr>
+                <tr>
+                    <td><span class="math">y = f(−x)</span></td>
+                    <td>Отражение относительно <span class="math">Oy</span></td>
+                </tr>
+                <tr>
+                    <td><span class="math">y = −f(x)</span></td>
+                    <td>Отражение относительно <span class="math">Ox</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="note">
+            <strong>Нюанс:</strong> преподаватель подчеркнула, что изменение аргумента влияет на горизонтальное расположение графика, а изменение значения функции — на вертикальное.
+        </div>
+
+        <div class="example">
+            <p>На занятии разбирался пример вида:</p>
+            <div class="formula-box">
+                <div class="formula">
+                    <span class="math">y = −3 sin(4x − π/6)</span>
+                </div>
+            </div>
+            <p><strong>Последовательность преобразований:</strong></p>
+            <ol>
+                <li>Сжать синусоиду по горизонтали в 4 раза.</li>
+                <li>Сместить вправо на <span class="math">π/24</span>, поскольку <span class="math">4x − π/6 = 4(x − π/24)</span>.</li>
+                <li>Увеличить амплитуду в 3 раза.</li>
+                <li>Отразить относительно оси <span class="math">Ox</span>.</li>
+            </ol>
+            <p>Итоговая амплитуда — 3, период — <span class="math">π/2</span>.</p>
+        </div>
+
+        <h2>5. Неявное задание функции</h2>
+        <p>Преподаватель объяснила, что не каждую кривую можно сразу представить в виде <span class="math">y = f(x)</span>.</p>
+        
+        <p>Неявная запись:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">F(x, y) = 0</span>
+            </div>
+        </div>
+
+        <p>Пример — окружность:</p>
+        <div class="formula">
+            <span class="math">x² + y² = R²</span>
+        </div>
+
+        <p>Из неё получаются две ветви:</p>
+        <div class="formula">
+            <span class="math">y = √(R² − x²)</span>
+        </div>
+        <div class="formula">
+            <span class="math">y = −√(R² − x²)</span>
+        </div>
+
+        <p><strong>Формула окружности с произвольным центром</strong>, которую преподаватель отдельно напомнила в конце занятия:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">(x − x₀)² + (y − y₀)² = R²</span>
+            </div>
+        </div>
+        <p>Здесь <span class="math">(x₀, y₀)</span> — центр, <span class="math">R</span> — радиус.</p>
+
+        <h2>6. Параметрическое задание функции</h2>
+        <p>Вместо выражения <span class="math">y</span> через <span class="math">x</span> обе координаты задаются через параметр <span class="math">t</span>:</p>
+
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">x = x(t)</span><br>
+                <span class="math">y = y(t)</span>
+            </div>
+        </div>
+
+        <p>Преподаватель объяснила, что параметр <span class="math">t</span> удобно воспринимать как время, а <span class="math">x(t)</span> и <span class="math">y(t)</span> — как координаты движущейся точки.</p>
+
+        <h3>Пример — циклоида</h3>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">x = t − sin t</span><br>
+                <span class="math">y = 1 − cos t</span>
+            </div>
+        </div>
+        <p>Эта кривая описывает движение точки на ободе катящегося колеса единичного радиуса.</p>
+
+        <div class="note">
+            <strong>Как строить параметрическую кривую по словам преподавателя:</strong>
+            <ol>
+                <li>Найти допустимые значения параметра <span class="math">t</span>.</li>
+                <li>Определить нули функций <span class="math">x(t)</span> и <span class="math">y(t)</span>.</li>
+                <li>Найти значения <span class="math">t</span>, при которых меняется монотонность координат.</li>
+                <li>Составить таблицу значений <span class="math">t, x, y</span>.</li>
+                <li>Отметить точки на плоскости и соединить их в правильном порядке.</li>
+            </ol>
+            <p>Особенно важно отслеживать точки, где координата сначала возрастает, а затем убывает: там траектория может менять направление или образовывать петлю.</p>
+        </div>
+
+        <h2>7. Полярная система координат</h2>
+        <p>В полярных координатах точка задаётся двумя числами:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">(ρ, φ)</span>
+            </div>
+        </div>
+        <p><span class="math">ρ</span> — расстояние от полюса, <span class="math">φ</span> — угол относительно полярной оси.</p>
+
+        <p>Преподаватель подробно вывела <strong>формулы перехода между декартовыми и полярными координатами</strong>:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">x = ρ cos φ</span>
+            </div>
+            <div class="formula">
+                <span class="math">y = ρ sin φ</span>
+            </div>
+        </div>
+
+        <p>Обратные соотношения:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">ρ = √(x² + y²)</span>
+            </div>
+            <div class="formula">
+                <span class="math">
+                    tan φ = <span class="fraction"><span class="numerator">y</span><span class="denominator">x</span></span>, при x ≠ 0
+                </span>
+            </div>
+        </div>
+
+        <div class="note">
+            <strong>Нюанс:</strong> одного тангенса недостаточно для однозначного определения угла — необходимо учитывать четверть, в которой находится точка.
+        </div>
+
+        <h3>Пример № 1. Спираль Архимеда</h3>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">ρ = φ,  φ ≥ 0</span>
+            </div>
+        </div>
+        <p>Преподаватель показала, как построить её по таблице значений угла и радиуса.</p>
+
+        <h3>Пример № 2. Лемниската Бернулли</h3>
+        <p>Исходное уравнение:</p>
+        <div class="formula">
+            <span class="math">(x² + y²)² = 4(x² − y²)</span>
+        </div>
+
+        <p>После перехода к полярным координатам:</p>
+        <div class="formula">
+            <span class="math">ρ⁴ = 4ρ² cos 2φ</span>
+        </div>
+
+        <p>Для ненулевого радиуса:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">ρ² = 4 cos 2φ</span>
+            </div>
+            <div class="formula">
+                <span class="math">ρ = 2√(cos 2φ)</span>
+            </div>
+        </div>
+        <p>при условии: <span class="math">cos 2φ ≥ 0</span></p>
+
+        <p>Преподаватель показала, что график состоит из двух лепестков и напоминает знак бесконечности.</p>
+
+        <h2>8. Что будет на следующем занятии</h2>
+        <p>Следующая тема — <strong>пределы функций</strong>, которая входит во второй модуль и необходима для выполнения КР № 1.</p>
+
+        <p>Основные формулы, с которых стоит начать подготовку:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">lim<sub>x<span class="vector">a</span></sub> f(x) = A</span>
+            </div>
+        </div>
+
+        <p>Первый замечательный предел:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→0</span></span> <span class="fraction"><span class="numerator">sin x</span><span class="denominator">x</span></span> = 1
+                </span>
+            </div>
+        </div>
+
+        <p>Второй замечательный предел:</p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→∞</span></span> (1 + <span class="fraction"><span class="numerator">1</span><span class="denominator">x</span></span>)<sup>x</sup> = e
+                </span>
+            </div>
+        </div>
+
+        <div class="note">
+            Эти формулы приведены <strong>для подготовки к следующей теме</strong>. На занятии 24 сентября преподаватель ещё не разбирала их подробно.
+        </div>
+
+        <h2>9. Что нужно сделать ДТ-660</h2>
+        <ul>
+            <li>Пройти проверочные тесты первого модуля для самопроверки.</li>
+            <li>Начать изучение второго модуля и подготовку к КР № 1.</li>
+            <li><strong>Выполнить КР № 1 до 18 октября 2026 года.</strong></li>
+            <li>Повторить графики элементарных функций, их свойства и преобразования.</li>
+            <li>Выучить формулы перехода между декартовыми и полярными координатами.</li>
+            <li>Научиться строить параметрические кривые по таблице значений.</li>
+            <li>Подготовиться к теме пределов.</li>
+        </ul>
+
+        <div class="note">
+            <strong>Итог занятия:</strong> преподаватель повторила материал первого модуля, объяснила способы задания и построения функций и обозначила порядок выполнения контрольных работ. Самое важное по организации — <strong>КР № 1 во втором модуле, срок до 18 октября</strong>, а по математике — <strong>свойства функций, преобразования графиков, параметрические и полярные координаты</strong>. Следующее занятие будет посвящено пределам и подготовке к первой контрольной.
+        </div>
+
+        <a href="../index.html" class="back-link">← Вернуться к расписанию</a>
+    </div>
+</body>
+</html>

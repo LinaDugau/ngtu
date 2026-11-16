@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЛА — Обратная матрица (13.11.2026)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #43a047 0%, #1b5e20 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #43a047;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #43a047;
+            margin-bottom: 10px;
+        }
+
+        .meta {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .meta strong {
+            color: #1b5e20;
+        }
+
+        h2 {
+            color: #1b5e20;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        h3 {
+            color: #43a047;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p, li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .formula-box {
+            background: #f8f9fa;
+            border-left: 4px solid #43a047;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .formula {
+            font-size: 1.3em;
+            text-align: center;
+            margin: 15px 0;
+            font-family: 'Times New Roman', serif;
+            white-space: nowrap;
+            overflow: auto;
+        }
+
+        .example {
+            background: #fff8e1;
+            border-left: 4px solid #ffa726;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .note {
+            background: #e8f5e9;
+            border-left: 4px solid #43a047;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .warning {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background: #43a047;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .back-link:hover {
+            background: #1b5e20;
+        }
+
+        .math {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+
+        .highlight {
+            background: #ffeb3b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .boxed {
+            border: 2px solid #43a047;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        .matrix {
+            display: inline-table;
+            border-collapse: collapse;
+            margin: 0 3px;
+            font-size: 0.85em;
+            vertical-align: middle;
+            border-left: 2px solid #333;
+            border-right: 2px solid #333;
+        }
+
+        .matrix td {
+            padding: 2px 8px;
+            text-align: center;
+            border: none;
+        }
+
+        .fraction {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 3px;
+            font-size: 0.95em;
+        }
+
+        .numerator {
+            border-bottom: 1px solid currentColor;
+            padding: 0 5px 1px 5px;
+            display: block;
+            line-height: 1.1;
+        }
+
+        .denominator {
+            padding: 1px 5px 0 5px;
+            display: block;
+            line-height: 1.1;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Линейная алгебра и аналитическая геометрия</h1>
+            <div class="meta">
+                <strong>Дата:</strong> 13 ноября 2026 года<br>
+                <strong>Группа:</strong> ДТ-660<br>
+                <strong>Тема:</strong> Операции с матрицами. Обратная матрица. Разбор задания № 4 контрольной работы № 1.
+            </div>
+        </div>
+
+        <p>На этой консультации преподаватель подробно разобрал операции с матрицами, уделив особое внимание умножению матриц и нахождению обратной матрицы. Это ключевые навыки для выполнения четвёртого задания контрольной работы.</p>
+
+        <h2>1. Главные сроки и баллы</h2>
+        
+        <div class="note">
+            <p><strong>Задание № 4 полностью разобрано и готово к сдаче!</strong></p>
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+            <tr style="background: #f0f0f0;">
+                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Что</strong></td>
+                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Когда</strong></td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">Задания № 1–3 (разобрали раньше)</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">Можно сдавать</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Задание № 4 (разбирали 13 ноября)</strong></td>
+                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Можно сдавать уже сейчас</strong></td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">Задания № 5–6</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">Разберём на следующих консультациях в ноябре–декабре</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">Весь семестр за 6 заданий</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">60 баллов</td>
+            </tr>
+        </table>
+
+        <div class="warning">
+            <p><strong>Важно:</strong> преподаватель прямо ответил, что <span class="highlight">все 6 заданий обязательны к выполнению</span>, включая задание № 6. На момент консультации оставались две встречи для разбора заданий № 5 и № 6.</p>
+        </div>
+
+        <h2>2. Операции с матрицами</h2>
+
+        <h3>2.1. Сложение и вычитание матриц</h3>
+
+        <p><strong>Правило:</strong> Складывать и вычитать можно только матрицы одинакового размера. Операция выполняется поэлементно.</p>
+
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">(A + B)<sub>ij</sub> = a<sub>ij</sub> + b<sub>ij</sub></span>
+            </div>
+        </div>
+
+        <div class="example">
+            <strong>Пример:</strong>
+            <div class="formula">
+                <table class="matrix">
+                    <tr><td>1</td><td>2</td></tr>
+                    <tr><td>3</td><td>4</td></tr>
+                </table>
+                + 
+                <table class="matrix">
+                    <tr><td>2</td><td>1</td></tr>
+                    <tr><td>1</td><td>3</td></tr>
+                </table>
+                = 
+                <table class="matrix">
+                    <tr><td>3</td><td>3</td></tr>
+                    <tr><td>4</td><td>7</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <h3>2.2. Умножение матрицы на число</h3>
+
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">λA = (λa<sub>ij</sub>)</span>
+            </div>
+        </div>
+
+        <p>Каждый элемент матрицы умножается на одно и то же число.</p>
+
+        <div class="example">
+            <strong>Пример:</strong>
+            <div class="formula">
+                3 <span class="math">×</span>
+                <table class="matrix">
+                    <tr><td>1</td><td>2</td></tr>
+                    <tr><td>−1</td><td>4</td></tr>
+                </table>
+                = 
+                <table class="matrix">
+                    <tr><td>3</td><td>6</td></tr>
+                    <tr><td>−3</td><td>12</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <h3>2.3. Умножение двух матриц — главное правило</h3>
+
+        <div class="highlight-box" style="background: #fff8e1; border-left: 4px solid #ffa726; padding: 15px; margin: 15px 0; border-radius: 8px;">
+            <p><strong style="font-size: 1.2em;">🔑 Строка первой матрицы умножается на столбец второй</strong></p>
+        </div>
+
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">c<sub>ij</sub> = Σ a<sub>ik</sub> b<sub>kj</sub> (от k=1 до n)</span>
+            </div>
+        </div>
+
+        <p><strong>Условие:</strong> первая матрица имеет размер m×n, вторая — n×p. Результат — m×p.</p>
+
+        <div class="example">
+            <strong>Пример:</strong>
+            <div class="formula">
+                <table class="matrix">
+                    <tr><td>1</td><td>2</td></tr>
+                    <tr><td>3</td><td>4</td></tr>
+                </table>
+                <span class="math">×</span>
+                <table class="matrix">
+                    <tr><td>2</td><td>1</td></tr>
+                    <tr><td>1</td><td>3</td></tr>
+                </table>
+            </div>
+            <div style="margin-top: 10px;">
+                <div class="formula">
+                    c₁₁ = 1·2 + 2·1 = 4
+                </div>
+                <div class="formula">
+                    c₁₂ = 1·1 + 2·3 = 7
+                </div>
+                <div class="formula">
+                    c₂₁ = 3·2 + 4·1 = 10
+                </div>
+                <div class="formula">
+                    c₂₂ = 3·1 + 4·3 = 15
+                </div>
+            </div>
+            <div class="formula">
+                =
+                <table class="matrix">
+                    <tr><td>4</td><td>7</td></tr>
+                    <tr><td>10</td><td>15</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="warning">
+            <p><strong>Преподаватель особенно подчеркнул:</strong> без хорошего навыка умножения строки на столбец не получится правильно находить и проверять обратную матрицу!</p>
+        </div>
+
+        <h3>2.4. Транспонирование</h3>
+
+        <p>Строки становятся столбцами:</p>
+
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">(A<sup>T</sup>)<sub>ij</sub> = a<sub>ji</sub></span>
+            </div>
+        </div>
+
+        <div class="example">
+            <strong>Пример:</strong>
+            <div class="formula">
+                <table class="matrix">
+                    <tr><td>1</td><td>2</td><td>3</td></tr>
+                    <tr><td>4</td><td>5</td><td>6</td></tr>
+                </table>
+                <sup>T</sup>
+                = 
+                <table class="matrix">
+                    <tr><td>1</td><td>4</td></tr>
+                    <tr><td>2</td><td>5</td></tr>
+                    <tr><td>3</td><td>6</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <h2>3. Определитель и обратная матрица</h2>
+
+        <h3>3.1. Определитель второго порядка</h3>
+
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">
+                    |
+                    <table class="matrix">
+                        <tr><td>a</td><td>b</td></tr>
+                        <tr><td>c</td><td>d</td></tr>
+                    </table>
+                    | = ad − bc
+                </span>
+            </div>
+        </div>
+
+        <h3>3.2. Определитель третьего порядка</h3>
+
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">
+                    |
+                    <table class="matrix">
+                        <tr><td>a</td><td>b</td><td>c</td></tr>
+                        <tr><td>d</td><td>e</td><td>f</td></tr>
+                        <tr><td>g</td><td>h</td><td>i</td></tr>
+                    </table>
+                    | = aei + bfg + cdh − ceg − bdi − afh
+                </span>
+            </div>
+        </div>
+
+        <h3>3.3. Условие существования обратной матрицы</h3>
+
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">det A ≠ 0 ⟺ ∃ A<sup>−1</sup></span>
+            </div>
+        </div>
+
+        <p>Если определитель равен нулю, матрица необратима.</p>
+
+        <h3>3.4. Миноры и алгебраические дополнения</h3>
+
+        <p><strong>Минор M<sub>ij</sub></strong> — определитель матрицы, полученной вычёркиванием строки i и столбца j.</p>
+
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">A<sub>ij</sub> = (−1)<sup>i+j</sup> M<sub>ij</sub></span>
+            </div>
+        </div>
+
+        <p><strong>Схема знаков для матрицы 3×3:</strong></p>
+
+        <div class="formula-box">
+            <div class="formula">
+                <table class="matrix">
+                    <tr><td>+</td><td>−</td><td>+</td></tr>
+                    <tr><td>−</td><td>+</td><td>−</td></tr>
+                    <tr><td>+</td><td>−</td><td>+</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <p>Знак зависит от чётности суммы i+j: если i+j нечётное, ставим минус.</p>
+
+        <h3>3.5. Основная формула для обратной матрицы</h3>
+
+        <div class="boxed" style="background: #fff8e1; border-left: 4px solid #ffa726;">
+            <div class="formula">
+                <span class="math">A<sup>−1</sup> = <span class="fraction">
+                    <span class="numerator">1</span>
+                    <span class="denominator">det A</span>
+                </span> adj A</span>
+            </div>
+        </div>
+
+        <p>где adj A — <strong>транспонированная матрица алгебраических дополнений</strong>.</p>
+
+        <h2>4. Последовательность решения</h2>
+
+        <ol>
+            <li>Вычислить определитель Δ = det A.</li>
+            <li>Убедиться, что Δ ≠ 0.</li>
+            <li>Найти все миноры M<sub>ij</sub>.</li>
+            <li>Найти все алгебраические дополнения A<sub>ij</sub> = (−1)<sup>i+j</sup> M<sub>ij</sub>.</li>
+            <li>Составить матрицу алгебраических дополнений.</li>
+            <li>Транспонировать полученную матрицу.</li>
+            <li>Разделить на det A.</li>
+            <li><span class="highlight">Обязательно проверить:</span> A · A<sup>−1</sup> = E (единичная матрица).</li>
+        </ol>
+
+        <div class="warning">
+            <p><strong>Преподаватель подчеркнул:</strong> проверку обязательно показывать при оформлении решения. Это демонстрирует умение перемножать матрицы и даёт дополнительные баллы.</p>
+        </div>
+
+        <h2>5. Проверка обратной матрицы</h2>
+
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">A · A<sup>−1</sup> = A<sup>−1</sup> · A = E</span>
+            </div>
+        </div>
+
+        <p>где E — единичная матрица:</p>
+
+        <div class="formula-box">
+            <div class="formula">
+                E = 
+                <table class="matrix">
+                    <tr><td>1</td><td>0</td><td>0</td></tr>
+                    <tr><td>0</td><td>1</td><td>0</td></tr>
+                    <tr><td>0</td><td>0</td><td>1</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <h2>6. Дополнительные замечания</h2>
+
+        <ul>
+            <li><strong>Метод элементарных преобразований</strong> для нахождения обратной матрицы будет разобран позже. На этой консультации изучается метод через алгебраические дополнения.</li>
+            <li>Для задания № 5 потребуются системы линейных уравнений, которые решаются методом Гаусса.</li>
+            <li>Задание № 6 опирается на результаты из задания № 5, поэтому лучше решить их последовательно.</li>
+            <li>Преподаватель разрешает выполнять задания заранее, не дожидаясь консультации — главное иметь материал в запасе.</li>
+        </ul>
+
+        <h2>7. Что нужно сделать группе ДТ-660</h2>
+
+        <div class="note">
+            <h3 style="margin-top: 0;">Чек-лист подготовки</h3>
+            <ul style="margin-top: 10px;">
+                <li>☐ Повторить умножение матриц: строка × столбец</li>
+                <li>☐ Выучить формулы определителей и алгебраических дополнений</li>
+                <li>☐ Найти свой индивидуальный вариант (n и m по шифру)</li>
+                <li>☐ Выполнить задание № 4а — сложение матриц</li>
+                <li>☐ Выполнить задание № 4б — обратная матрица</li>
+                <li>☐ <span class="highlight">Обязательно</span> показать проверку QQ<sup>−1</sup> = E</li>
+                <li>☐ Отправить готовое решение на проверку</li>
+                <li>☐ Начать готовиться к методу Гаусса для задания № 5</li>
+            </ul>
+        </div>
+
+        <h2>8. Итоги консультации</h2>
+
+        <div class="formula-box">
+            <p><strong>Главные выводы:</strong></p>
+            <ul style="margin-left: 20px;">
+                <li>Задание № 4 полностью готово к сдаче.</li>
+                <li>Критически важно уметь умножать строку на столбец.</li>
+                <li>Формула обратной матрицы через алгебраические дополнения — основной метод на этом этапе.</li>
+                <li>Проверка обязательна и входит в оценку.</li>
+                <li>Задания № 5 и № 6 разберут на следующих консультациях.</li>
+            </ul>
+        </div>
+
+        <a href="../index.html" class="back-link">← Вернуться к расписанию</a>
+    </div>
+</body>
+</html>

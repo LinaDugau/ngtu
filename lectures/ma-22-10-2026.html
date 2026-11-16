@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МА — Непрерывность и асимптоты (22.10.2026)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .meta {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .meta strong {
+            color: #764ba2;
+        }
+
+        h2 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        h3 {
+            color: #667eea;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p, li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .formula-box {
+            background: #f8f9fa;
+            border: 2px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .formula {
+            font-size: 1.3em;
+            text-align: center;
+            margin: 15px 0;
+            font-family: 'Times New Roman', serif;
+            white-space: nowrap;
+            overflow: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1.05em;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .example {
+            background: #fff8e1;
+            border-left: 4px solid #ffa726;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .note {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .warning {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .back-link:hover {
+            background: #764ba2;
+        }
+
+        .math {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+
+        .limit {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 3px;
+        }
+
+        .limit-top {
+            font-size: 1em;
+            line-height: 1;
+        }
+
+        .limit-bottom {
+            font-size: 0.7em;
+            line-height: 1;
+            font-style: normal;
+            margin-top: 2px;
+        }
+
+        .fraction {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 3px;
+            font-size: 0.95em;
+        }
+
+        .numerator {
+            border-bottom: 1px solid currentColor;
+            padding: 0 5px 1px 5px;
+            display: block;
+            line-height: 1.1;
+        }
+
+        .denominator {
+            padding: 1px 5px 0 5px;
+            display: block;
+            line-height: 1.1;
+        }
+
+        .highlight {
+            background: #ffeb3b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .boxed {
+            border: 2px solid #667eea;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Математический анализ — собрание МА22.10</h1>
+            <div class="meta">
+                <strong>Дата:</strong> 22 октября 2026 года<br>
+                <strong>Группа:</strong> ДТ-660<br>
+                <strong>Преподаватель:</strong> Оксана Владиславовна<br>
+                <strong>Тема:</strong> Непрерывность функций, точки разрыва, асимптоты, сравнение бесконечно малых и бесконечно больших функций.
+            </div>
+        </div>
+
+        <p>На занятии преподаватель завершила тему пределов, разобрала непрерывность функций, классификацию точек разрыва, поиск асимптот и сравнение бесконечно малых. В конце объяснила важные свойства непрерывных функций и рассказала, что будет на следующем занятии.</p>
+
+        <h2>1. Самое важное: сроки и контрольные работы</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Вопрос</th>
+                    <th>Что сказала преподаватель</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Срок первой контрольной</td>
+                    <td><strong>18 октября — рекомендованный срок</strong>, а не жёсткий дедлайн</td>
+                </tr>
+                <tr>
+                    <td>Проверка работ</td>
+                    <td>Ориентировочно в течение недели после сдачи</td>
+                </tr>
+                <tr>
+                    <td>Поздняя сдача</td>
+                    <td>Работы продолжают принимать до начала сессии, ориентировочно до <strong>10 января</strong></td>
+                </tr>
+                <tr>
+                    <td>Куда отправлять</td>
+                    <td><strong>Только в задание на платформе</strong>, не в личные сообщения</td>
+                </tr>
+                <tr>
+                    <td>Вторая контрольная</td>
+                    <td>Преподаватель рекомендует не затягивать, пока не начался массовый поток</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="warning">
+            <p><strong>Важное:</strong> преподаватель подчеркнула: «Сроки — рекомендованные». Для ДТ-660 это значит, что первую контрольную можно отправлять в любое время, но лучше не откладывать.</p>
+        </div>
+
+        <h2>2. Что преподаватель особенно подчеркнула</h2>
+
+        <p><strong>Главная идея занятия:</strong> пределы нужны не только для вычисления чисел, но и для исследования поведения функций.</p>
+
+        <ul>
+            <li>Проверять непрерывность функции</li>
+            <li>Определять тип точки разрыва</li>
+            <li>Находить вертикальные, горизонтальные и наклонные асимптоты</li>
+            <li>Сравнивать скорость стремления функций к нулю или бесконечности</li>
+            <li>Вычислять сложные пределы, используя непрерывность элементарных функций</li>
+        </ul>
+
+        <h2>3. Формулы по теме занятия</h2>
+
+        <h3>3.1. Непрерывность функции в точке</h3>
+
+        <div class="boxed">
+            <div class="formula">
+                <span class="math"><span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→x₀</span></span> f(x) = f(x₀)</span>
+            </div>
+        </div>
+
+        <p>Преподаватель объяснила, что для непрерывности нужны три условия:</p>
+        <ul>
+            <li>Существует значение <span class="math">f(x₀)</span></li>
+            <li>Существуют конечные левый и правый пределы</li>
+            <li>Оба односторонних предела равны значению функции в точке</li>
+        </ul>
+
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→x₀−0</span></span> f(x) = <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→x₀+0</span></span> f(x) = f(x₀)
+                </span>
+            </div>
+        </div>
+
+        <div class="note">
+            <strong>Важный факт:</strong> все элементарные функции непрерывны в своих областях определения.
+        </div>
+
+        <h3>3.2. Точки разрыва</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Тип разрыва</th>
+                    <th>Условие</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Устранимый</td>
+                    <td>Пределы конечны и равны, но <span class="math">f(x₀)</span> отсутствует или не равен пределу</td>
+                </tr>
+                <tr>
+                    <td>Скачок</td>
+                    <td>Пределы слева и справа конечны, но различаются</td>
+                </tr>
+                <tr>
+                    <td>Второго рода</td>
+                    <td>Хотя бы один односторонний предел не существует или бесконечен</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>3.3. Асимптоты</h3>
+
+        <p><strong>Вертикальная асимптота:</strong></p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">x = x₀</span>
+            </div>
+        </div>
+        <p>если хотя бы один односторонний предел функции при <span class="math">x→x₀</span> бесконечен.</p>
+
+        <p><strong>Горизонтальная асимптота:</strong></p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">y = b</span>
+            </div>
+        </div>
+        <p>если <span class="math"><span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→±∞</span></span> f(x) = b</span> (конечный предел)</p>
+
+        <p><strong>Наклонная асимптота:</strong></p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">
+                    k = <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→±∞</span></span> <span class="fraction"><span class="numerator">f(x)</span><span class="denominator">x</span></span>
+                </span>
+            </div>
+            <div class="formula">
+                <span class="math">
+                    b = <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→±∞</span></span> (f(x) − kx)
+                </span>
+            </div>
+        </div>
+
+        <p>Асимптота: <span class="math">y = kx + b</span> (если оба предела конечны)</p>
+
+        <h3>3.4. Сравнение бесконечно малых</h3>
+
+        <p><strong>Эквивалентные функции:</strong></p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→x₀</span></span> <span class="fraction"><span class="numerator">f(x)</span><span class="denominator">g(x)</span></span> = 1 ⟹ f(x) ~ g(x)
+                </span>
+            </div>
+        </div>
+
+        <p><strong>Более высокий порядок малости:</strong></p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→x₀</span></span> <span class="fraction"><span class="numerator">f(x)</span><span class="denominator">g(x)</span></span> = 0 ⟹ f(x) = o(g(x))
+                </span>
+            </div>
+        </div>
+
+        <h2>4. Большой пример: рациональная функция</h2>
+
+        <div class="example">
+            <div class="formula">
+                <span class="math">f(x) = <span class="fraction"><span class="numerator">x³ − 2x² + 3x − 2</span><span class="denominator">1 − x²</span></span></span>
+            </div>
+        </div>
+
+        <p><strong>Область определения:</strong> <span class="math">D(f) = ℝ \ {−1, 1}</span></p>
+
+        <p><strong>Вертикальные асимптоты:</strong> <span class="math">x = −1</span> и <span class="math">x = 1</span></p>
+
+        <p><strong>Наклонная асимптота:</strong></p>
+        <div class="formula-box">
+            <div class="formula">
+                <span class="math">k = <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→∞</span></span> <span class="fraction"><span class="numerator">f(x)</span><span class="denominator">x</span></span> = −1</span>
+            </div>
+            <div class="formula">
+                <span class="math">b = <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">x→∞</span></span> (f(x) + x) = 2</span>
+            </div>
+        </div>
+
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">y = −x + 2</span>
+            </div>
+        </div>
+
+        <h2>5. Свойства непрерывных функций</h2>
+
+        <h3>Свойство 1. Приращение функции</h3>
+        <p>Если <span class="math">f</span> непрерывна в <span class="math">x₀</span>, то:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math"><span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">Δx→0</span></span> Δy = 0</span>
+            </div>
+        </div>
+
+        <h3>Свойство 2. Теорема о промежуточном значении</h3>
+        <p>Если <span class="math">f</span> непрерывна на <span class="math">[a,b]</span> и <span class="math">f(a)·f(b) < 0</span>, то существует <span class="math">c ∈ (a,b)</span> такая что:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">f(c) = 0</span>
+            </div>
+        </div>
+
+        <h3>Свойство 3. Наибольшее и наименьшее значения</h3>
+        <p>Если <span class="math">f</span> непрерывна на замкнутом отрезке <span class="math">[a,b]</span>, то она достигает минимального и максимального значений:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">m ≤ f(x) ≤ M</span>
+            </div>
+        </div>
+
+        <div class="warning">
+            <strong>Важный нюанс:</strong> это свойство относится только к <strong>замкнутому отрезку</strong>. На открытом интервале непрерывная функция может не иметь максимума или минимума.
+        </div>
+
+        <h3>Свойство 4. Непрерывность сложной функции</h3>
+        <p>Если <span class="math">g</span> непрерывна в <span class="math">t₀</span> и <span class="math">f</span> непрерывна в <span class="math">g(t₀)</span>, то:</p>
+        <div class="boxed">
+            <div class="formula">
+                <span class="math">
+                    <span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">t→t₀</span></span> f(g(t)) = f(<span class="limit"><span class="limit-top">lim</span><span class="limit-bottom">t→t₀</span></span> g(t))
+                </span>
+            </div>
+        </div>
+
+        <h2>6. Что будет на следующем занятии</h2>
+
+        <p>Преподаватель объявила переход к новой теме — <strong>дифференциальному исчислению</strong>.</p>
+
+        <p><strong>Что рекомендуется прочитать заранее:</strong></p>
+        <ul>
+            <li>Определение производной</li>
+            <li>Геометрический смысл производной</li>
+            <li>Физический смысл производной</li>
+            <li>Определение дифференцируемой функции</li>
+        </ul>
+
+        <h2>7. Что нужно сделать ДТ-660</h2>
+
+        <div class="note">
+            <strong>Контрольный список</strong>
+            <ol>
+                <li>Сдать первую контрольную, если она ещё не отправлена</li>
+                <li>Проверить, не вернул ли преподаватель решение на доработку</li>
+                <li>Повторить определение непрерывности и односторонние пределы</li>
+                <li>Научиться определять типы точек разрыва</li>
+                <li>Выучить формулы вертикальных, горизонтальных и наклонных асимптот</li>
+                <li>Разобрать большой пример с рациональной функцией</li>
+                <li>Повторить эквивалентные функции и обозначение o-малое</li>
+                <li>Изучить свойства непрерывных функций на отрезке</li>
+                <li>Прочитать определение производной и её смысл</li>
+            </ol>
+        </div>
+
+        <div class="note">
+            <strong>Итог:</strong> на занятии преподаватель завершила тему пределов и перешла к непрерывности функций. Главный акцент — на применении пределов для исследования поведения функций, определении асимптот и классификации разрывов. Следующая тема — производные.
+        </div>
+
+        <a href="../index.html" class="back-link">← Вернуться к расписанию</a>
+    </div>
+</body>
+</html>

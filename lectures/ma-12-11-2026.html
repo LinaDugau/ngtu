@@ -162,6 +162,42 @@
             font-size: 1.1em;
         }
 
+        .vector {
+            position: relative;
+            display: inline-block;
+            font-style: italic;
+        }
+
+        .vector::after {
+            content: '→';
+            position: absolute;
+            top: -0.7em;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            font-style: normal;
+        }
+
+        .limit {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 3px;
+        }
+
+        .limit-top {
+            font-size: 1em;
+            line-height: 1;
+        }
+
+        .limit-bottom {
+            font-size: 0.7em;
+            line-height: 1;
+            font-style: normal;
+            margin-top: 2px;
+        }
+
         .fraction {
             display: inline-flex;
             flex-direction: column;
@@ -321,10 +357,10 @@
         <div class="boxed">
             <div class="formula">
                 <span class="math">
-                    lim<sub>x→a</sub> <span class="fraction">
+                    lim<sub>x<span class="vector">a</span></sub> <span class="fraction">
                         <span class="numerator">f(x)</span>
                         <span class="denominator">g(x)</span>
-                    </span> = lim<sub>x→a</sub> <span class="fraction">
+                    </span> = lim<sub>x<span class="vector">a</span></sub> <span class="fraction">
                         <span class="numerator">f'(x)</span>
                         <span class="denominator">g'(x)</span>
                     </span>
